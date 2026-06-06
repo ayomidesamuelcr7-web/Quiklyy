@@ -7,5 +7,15 @@
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900 font-sans antialiased;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    /* Safe area padding for bottom of screen (e.g., iPhone home indicator) */
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Re-enable user selection for inputs and textareas */
+  input, textarea, [contenteditable] {
+    user-select: auto;
   }
 }

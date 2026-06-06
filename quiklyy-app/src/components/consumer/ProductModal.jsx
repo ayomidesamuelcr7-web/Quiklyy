@@ -23,8 +23,11 @@ export default function ProductModal({ item, onClose, onReserve, reserving }) {
   const hasMultipleImages = item.imageUrls && item.imageUrls.length > 1;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm">
-      <div className="bg-white rounded-3xl shadow-xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row relative">
+    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4 bg-gray-900/60 backdrop-blur-sm" onClick={onClose}>
+      <div 
+        className="bg-white rounded-t-3xl md:rounded-3xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto md:overflow-hidden flex flex-col md:flex-row relative animate-slide-up md:animate-none pb-[env(safe-area-inset-bottom)]"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button 
           onClick={onClose}
           className="absolute top-4 right-4 z-10 p-2 bg-white/80 backdrop-blur-sm hover:bg-white text-gray-600 hover:text-gray-900 rounded-full shadow-sm transition-colors"

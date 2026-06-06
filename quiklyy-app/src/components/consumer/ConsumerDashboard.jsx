@@ -5,6 +5,8 @@ import RecentOrders from './RecentOrders';
 import ProductModal from './ProductModal';
 import { supabase } from '../../lib/supabaseClient';
 import ConsumerHeader from './ConsumerHeader';
+import BottomNav from '../shared/ui/BottomNav';
+import { LogOut, User } from 'lucide-react';
 
 export default function ConsumerDashboard({ session, onLogout }) {
   const [items, setItems] = useState([]);
@@ -99,17 +101,18 @@ export default function ConsumerDashboard({ session, onLogout }) {
     <div className="min-h-screen flex flex-col">
       <ConsumerHeader onLogout={onLogout} />
       <main className="flex-grow pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
+          <div className="mb-6">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight mb-1 md:mb-2">
               Save food, save money.
             </h1>
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-500 text-base md:text-lg">
               Grab these local deals before they're gone!
             </p>
           </div>
-
-          <div className="flex border-b border-gray-200 mb-6 gap-2">
+          
+          {/* Desktop Tabs (Hidden on Mobile) */}
+          <div className="hidden md:flex border-b border-gray-200 mb-6 gap-2">
             <button 
               onClick={() => setActiveTab('listings')}
               className={`pb-3 px-4 font-medium text-lg border-b-2 transition-colors ${activeTab === 'listings' ? 'border-brand-blue text-brand-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
@@ -124,11 +127,11 @@ export default function ConsumerDashboard({ session, onLogout }) {
             </button>
           </div>
           
-          {activeTab === 'listings' ? (
+          {activeTab === 'listings' && (
             <>
               <SearchBar />
-              <div className="mt-8">
-                <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+              <div className="mt-6 md:mt-8">
+                <h2 className="text-xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center">
                   <span className="relative">
                     Ending Soon Near You
                     <span className="absolute -bottom-1 left-0 w-1/2 h-1 bg-brand-accent rounded-full"></span>
@@ -141,13 +144,35 @@ export default function ConsumerDashboard({ session, onLogout }) {
                 )}
               </div>
             </>
-          ) : (
+          )}
+
+          {activeTab === 'purchases' && (
             <div className="mt-4">
               <RecentOrders session={session} />
             </div>
           )}
+
+          {activeTab === 'profile' && (
+            <div className="mt-4 flex flex-col items-center justify-center py-12 px-4 text-center">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                <User size={40} className="text-gray-400" />
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-1">{session?.user?.email}</h2>
+              <p className="text-gray-500 mb-8">Consumer Account</p>
+              
+              <button 
+                onClick={onLogout}
+                className="flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 rounded-xl font-medium w-full max-w-xs justify-center hover:bg-red-100 transition-colors"
+              >
+                <LogOut size={20} />
+                Sign Out
+              </button>
+            </div>
+          )}
         </div>
       </main>
+
+      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {selectedItem && (
         <ProductModal 

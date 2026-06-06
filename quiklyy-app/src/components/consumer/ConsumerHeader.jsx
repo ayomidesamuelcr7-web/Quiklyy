@@ -50,26 +50,26 @@ export default function ConsumerHeader({ onLogout }) {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 z-50 px-4 md:px-8 flex items-center justify-between shadow-sm">
+    <header className="fixed top-0 left-0 right-0 h-14 md:h-16 bg-white/80 backdrop-blur-md border-b border-gray-100 z-40 px-4 md:px-8 flex items-center justify-between shadow-sm">
       <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-lg bg-brand-blue flex items-center justify-center">
-          <span className="text-white font-bold text-xl leading-none">Q</span>
+        <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-brand-blue flex items-center justify-center shadow-sm">
+          <span className="text-white font-bold text-lg md:text-xl leading-none">Q</span>
         </div>
-        <span className="text-brand-blue font-bold text-xl tracking-tight">Quiklyy</span>
+        <span className="text-brand-blue font-bold text-lg md:text-xl tracking-tight">Quiklyy</span>
       </div>
 
-      <div className="hidden md:flex items-center text-gray-500 text-sm bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200">
-        <MapPin size={16} className="mr-1 text-brand-accent" />
-        <span>{locationName}</span>
+      <div className="flex items-center text-gray-500 text-xs md:text-sm bg-gray-50/80 px-3 py-1.5 rounded-full border border-gray-100 max-w-[150px] md:max-w-xs truncate">
+        <MapPin size={14} className="mr-1 text-brand-accent flex-shrink-0" />
+        <span className="truncate">{locationName}</span>
       </div>
 
-      <div className="flex items-center gap-3 md:gap-5">
+      <div className="hidden md:flex items-center gap-5">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-brand-blue">
           <User size={16} />
-          <span className="hidden sm:inline">Consumer</span>
+          <span>Consumer</span>
         </div>
         
-        <div className="h-6 w-px bg-gray-200 hidden sm:block"></div>
+        <div className="h-6 w-px bg-gray-200"></div>
         
         <button 
           onClick={onLogout}
