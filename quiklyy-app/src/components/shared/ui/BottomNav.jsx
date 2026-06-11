@@ -1,10 +1,11 @@
-import { MapPin, ShoppingBag, User } from 'lucide-react';
+import { ShoppingBag, ShoppingCart, Clock, Menu } from 'lucide-react';
 
 export default function BottomNav({ activeTab, setActiveTab }) {
   const tabs = [
-    { id: 'listings', icon: MapPin, label: 'Explore' },
-    { id: 'purchases', icon: ShoppingBag, label: 'Purchases' },
-    { id: 'profile', icon: User, label: 'Profile' },
+    { id: 'shopping', icon: ShoppingBag, label: 'Shop' },
+    { id: 'cart', icon: ShoppingCart, label: 'Cart' },
+    { id: 'purchases', icon: Clock, label: 'Orders' },
+    { id: 'menu', icon: Menu, label: 'Menu' },
   ];
 
   return (

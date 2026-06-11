@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import ConsumerDashboard from './components/consumer/ConsumerDashboard';
 import BusinessDashboard from './components/business/BusinessDashboard';
+import LandingPage from './components/shared/auth/LandingPage';
 import Login from './components/shared/auth/Login';
 import Signup from './components/shared/auth/Signup';
 import { supabase } from './lib/supabaseClient';
 
 function App() {
   const [session, setSession] = useState(null);
-  const [authView, setAuthView] = useState('login'); 
+  const [authView, setAuthView] = useState('landing'); 
   const [userRole, setUserRole] = useState(null); 
   const [loading, setLoading] = useState(true);
 
@@ -78,7 +79,9 @@ function App() {
   }
 
   if (!session) {
-    if (authView === 'login') {
+    if (authView === 'landing') {
+      return <LandingPage onNavigate={setAuthView} />;
+    } else if (authView === 'login') {
       return <Login onNavigate={setAuthView} />;
     } else {
       return <Signup onNavigate={setAuthView} />;
