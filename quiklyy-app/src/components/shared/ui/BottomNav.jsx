@@ -1,4 +1,4 @@
-import { ShoppingBag, ShoppingCart, Menu, MapPin } from 'lucide-react';
+import { IconShoppingBag, IconShoppingCart, IconMenu, IconMapPin } from './CustomIcons';
 
 export default function BottomNav({ activeTab, setActiveTab }) {
   return (
@@ -10,7 +10,7 @@ export default function BottomNav({ activeTab, setActiveTab }) {
           onClick={() => setActiveTab('shopping')}
           className="flex items-center gap-2 bg-[#004466] text-white px-4 py-2.5 rounded-full shadow-sm"
         >
-          <MapPin size={20} strokeWidth={2} />
+          <IconMapPin size={20} />
           <span className="text-[13px] font-medium">Explore</span>
         </button>
 
@@ -19,7 +19,7 @@ export default function BottomNav({ activeTab, setActiveTab }) {
           onClick={() => setActiveTab('cart')}
           className="text-[#353535]"
         >
-          <ShoppingCart size={24} strokeWidth={1.5} />
+          <IconShoppingCart size={24} />
         </button>
 
         {/* Purchases/Orders Tab */}
@@ -27,7 +27,7 @@ export default function BottomNav({ activeTab, setActiveTab }) {
           onClick={() => setActiveTab('purchases')}
           className="text-[#353535]"
         >
-          <ShoppingBag size={24} strokeWidth={1.5} />
+          <IconShoppingBag size={24} />
         </button>
 
         {/* Menu Tab */}
@@ -35,7 +35,7 @@ export default function BottomNav({ activeTab, setActiveTab }) {
           onClick={() => setActiveTab('menu')}
           className="text-[#353535]"
         >
-          <Menu size={24} strokeWidth={1.5} />
+          <IconMenu size={24} />
         </button>
 
       </div>

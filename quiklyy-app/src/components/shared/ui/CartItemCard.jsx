@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin } from 'lucide-react';
+import { IconMapPin } from './CustomIcons';
 
 export default function CartItemCard({ item, quantity = 0, onQuantityChange, isCartView = false }) {
   if (isCartView) {
@@ -40,7 +40,7 @@ export default function CartItemCard({ item, quantity = 0, onQuantityChange, isC
         
         <div className="flex justify-between items-end mt-1">
           <div className="flex items-start gap-1 flex-1 min-w-0 pr-2">
-            <MapPin size={10} className="text-gray-400 mt-0.5 flex-shrink-0" />
+            <IconMapPin size={10} className="text-gray-400 mt-0.5 flex-shrink-0" />
             <p className="text-[9px] text-gray-500 leading-tight truncate whitespace-normal line-clamp-2">
               {item.distance}
             </p>

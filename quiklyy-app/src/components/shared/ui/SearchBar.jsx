@@ -1,4 +1,4 @@
-import { SlidersHorizontal } from 'lucide-react';
+import { IconFilterSliders } from './CustomIcons';
 
 export default function SearchBar() {
   const categories = ['All', 'Groceries', 'Meals', 'Bakery'];
@@ -14,7 +14,7 @@ export default function SearchBar() {
           />
         </div>
         <button className="flex items-center justify-center p-3 border border-gray-200 rounded-xl bg-white text-gray-600">
-          <SlidersHorizontal size={20} />
+          <IconFilterSliders size={20} />
         </button>
       </div>
       
