@@ -11,16 +11,13 @@ export default function ShoppingPage({ items, onAddToCart }) {
   };
 
   return (
-    <div className="animate-slide-up">
+    <div className="animate-slide-up bg-[#f9f9f9] min-h-screen px-5 py-4">
       <SearchBar />
-      <div className="mt-6 md:mt-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center">
-          <span className="relative">
-            Available Deals
-            <span className="absolute -bottom-1 left-0 w-1/2 h-1 bg-brand-accent rounded-full"></span>
-          </span>
+      <div className="mt-2">
+        <h2 className="text-[18px] font-bold text-[#353535] mb-4">
+          Ending soon near you
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-3 pb-24">
           {items.map(item => (
             <CartItemCard 
               key={item.id} 

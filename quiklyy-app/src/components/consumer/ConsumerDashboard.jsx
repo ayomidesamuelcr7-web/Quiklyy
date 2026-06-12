@@ -119,11 +119,11 @@ export default function ConsumerDashboard({ session, onLogout }) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-[#f9f9f9]">
       <ConsumerHeader onLogout={onLogout} />
       
-      <main className="flex-grow pt-16 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
+      <main className="flex-grow pb-24">
+        <div className="max-w-7xl mx-auto md:px-8">
           
           {/* Desktop Tabs (Hidden on Mobile) */}
           <div className="hidden md:flex border-b border-gray-200 mb-6 gap-2">
