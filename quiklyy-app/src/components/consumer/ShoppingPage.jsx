@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import SearchBar from '../shared/ui/SearchBar';
 import CartItemCard from '../shared/ui/CartItemCard';
+import ProductModal from './ProductModal';
 
 export default function ShoppingPage({ items, onAddToCart }) {
   const [quantities, setQuantities] = useState({});
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleQuantityChange = (id, quantity) => {
     setQuantities(prev => ({ ...prev, [id]: quantity }));
     onAddToCart(id, quantity);
+  };
+
+  const handleModalPurchase = (id, quantity) => {
+    handleQuantityChange(id, (quantities[id] || 0) + quantity);
   };
 
   return (
@@ -23,12 +29,21 @@ export default function ShoppingPage({ items, onAddToCart }) {
               key={item.id} 
               item={item} 
               quantity={quantities[item.id] || 0} 
-              onQuantityChange={handleQuantityChange} 
+              onQuantityChange={handleQuantityChange}
+              onClick={() => setSelectedItem(item)}
               isCartView={false}
             />
           ))}
         </div>
       </div>
+
+      {selectedItem && (
+        <ProductModal 
+          item={selectedItem} 
+          onClose={() => setSelectedItem(null)} 
+          onAddToCart={handleModalPurchase} 
+        />
+      )}
     </div>
   );
 }

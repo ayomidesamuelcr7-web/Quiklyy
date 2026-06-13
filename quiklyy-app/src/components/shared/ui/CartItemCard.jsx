@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconMapPin } from './CustomIcons';
 
-export default function CartItemCard({ item, quantity = 0, onQuantityChange, isCartView = false }) {
+export default function CartItemCard({ item, quantity = 0, onQuantityChange, onClick, isCartView = false }) {
   if (isCartView) {
     // Basic fallback for cart view, if needed
     return (
@@ -25,7 +25,10 @@ export default function CartItemCard({ item, quantity = 0, onQuantityChange, isC
 
   // Shopping Page Card View
   return (
-    <div className="bg-white rounded-[16px] border border-gray-200 overflow-hidden flex flex-col p-2 pb-3">
+    <div 
+      onClick={onClick}
+      className="bg-white rounded-[16px] border border-gray-200 overflow-hidden flex flex-col p-2 pb-3 cursor-pointer"
+    >
       {/* Image Container */}
       <div className="relative w-full aspect-[4/5] bg-gray-100 rounded-[12px] overflow-hidden">
         {item.image && <img src={item.image} alt={item.name} className="w-full h-full object-cover" />}
@@ -52,7 +55,10 @@ export default function CartItemCard({ item, quantity = 0, onQuantityChange, isC
         </div>
 
         <button 
-          onClick={() => onQuantityChange(item.id, quantity + 1)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onQuantityChange(item.id, quantity + 1);
+          }}
           className="w-full mt-3 bg-[#004466] text-white text-[13px] font-semibold py-2 rounded-[10px]"
         >
           Grab
