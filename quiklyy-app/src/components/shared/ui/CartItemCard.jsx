@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconMapPin } from './CustomIcons';
+import { MapPin, Store } from 'lucide-react';
 
 export default function CartItemCard({ item, quantity = 0, onQuantityChange, onClick, isCartView = false }) {
   if (isCartView) {
@@ -24,33 +24,46 @@ export default function CartItemCard({ item, quantity = 0, onQuantityChange, onC
   }
 
   // Shopping Page Card View
+  const originalPrice = item.originalPrice || (Number(item.price) * 2);
+  const currentPrice = Number(item.price);
+  const discountPercent = Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
+
   return (
     <div 
       onClick={onClick}
-      className="bg-white rounded-[16px] border border-gray-200 overflow-hidden flex flex-col p-2 pb-3 cursor-pointer"
+      className="bg-white rounded-[20px] border border-gray-200 overflow-hidden flex flex-col p-3 pb-4 cursor-pointer shadow-sm transition-shadow hover:shadow-md"
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[4/5] bg-gray-100 rounded-[12px] overflow-hidden">
+      <div className="relative w-full aspect-[4/3] sm:aspect-square bg-gray-100 rounded-[14px] overflow-hidden">
         {item.image && <img src={item.image} alt={item.name} className="w-full h-full object-cover" />}
-        <div className="absolute top-2 right-2 bg-[#004466] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md">
-          -50%
+        <div className="absolute top-3 right-3 bg-[#004466] text-white text-[11px] font-bold px-2 py-1 rounded-md shadow-sm">
+          -{discountPercent}%
         </div>
       </div>
 
       {/* Details */}
-      <div className="pt-3 px-1">
-        <h3 className="font-bold text-[13px] text-gray-900 truncate">{item.name}</h3>
+      <div className="pt-4 px-1 flex flex-col flex-1">
+        <h3 className="font-bold text-[18px] text-gray-900 truncate mb-2">{item.name}</h3>
         
-        <div className="flex justify-between items-end mt-1">
-          <div className="flex items-start gap-1 flex-1 min-w-0 pr-2">
-            <IconMapPin size={10} className="text-gray-400 mt-0.5 flex-shrink-0" />
-            <p className="text-[9px] text-gray-500 leading-tight truncate whitespace-normal line-clamp-2">
-              {item.distance}
-            </p>
+        <div className="flex justify-between items-end mt-1 flex-1">
+          <div className="flex flex-col gap-1.5 flex-1 min-w-0 pr-3">
+            <div className="flex items-center gap-1.5 text-gray-500">
+              <Store size={14} className="flex-shrink-0" />
+              <span className="text-[12px] truncate">{item.storeName || "Store Name"}</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-gray-500">
+              <MapPin size={14} className="flex-shrink-0" />
+              <span className="text-[12px] truncate">{item.location || item.distance || "Location"}</span>
+            </div>
           </div>
-          <div className="text-right flex-shrink-0">
-             <div className="text-[9px] text-gray-400 line-through">₦{item.originalPrice || (Number(item.price) * 2)}</div>
-             <div className="font-bold text-[13px] text-[#004466] leading-none">₦{item.price}</div>
+          
+          <div className="flex flex-col items-end flex-shrink-0 mb-0.5">
+             <div className="text-[12px] text-gray-400 line-through font-semibold mb-0.5">
+               ₦{originalPrice}
+             </div>
+             <div className="font-bold text-[20px] text-[#004466] leading-none">
+               ₦{currentPrice}
+             </div>
           </div>
         </div>
 
@@ -59,7 +72,7 @@ export default function CartItemCard({ item, quantity = 0, onQuantityChange, onC
             e.stopPropagation();
             onQuantityChange(item.id, quantity + 1);
           }}
-          className="w-full mt-3 bg-[#004466] text-white text-[13px] font-semibold py-2 rounded-[10px]"
+          className="w-full mt-4 bg-[#004466] hover:bg-[#00334d] transition-colors text-white text-[15px] font-bold py-3 rounded-[12px]"
         >
           Grab
         </button>
