@@ -72,7 +72,10 @@ export default function ProductModal({ item, onClose, onAddToCart }) {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="w-12 h-12 flex-shrink-0 bg-[#e6f0f5] text-[#004466] rounded-[12px] flex items-center justify-center">
+            <button 
+              onClick={handlePurchase}
+              className="w-12 h-12 flex-shrink-0 bg-[#e6f0f5] text-[#004466] rounded-[12px] flex items-center justify-center active:scale-95 transition-transform"
+            >
               <IconShoppingCart size={24} />
             </button>
             

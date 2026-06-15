@@ -1,23 +1,42 @@
 import React from 'react';
-import { MapPin, Store } from 'lucide-react';
+import { MapPin, Store, Trash2, Plus, Minus } from 'lucide-react';
 
 export default function CartItemCard({ item, quantity = 0, onQuantityChange, onClick, isCartView = false }) {
   if (isCartView) {
-    // Basic fallback for cart view, if needed
     return (
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-row p-3 gap-4 items-center">
-        <div className="w-20 h-20 bg-gray-100 rounded-xl flex-shrink-0">
-          {item.image && <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded-xl" />}
+      <div className="bg-white rounded-[16px] border border-gray-200 overflow-hidden flex flex-row p-3 gap-3 items-center shadow-sm">
+        <div className="w-[84px] h-[84px] bg-gray-100 rounded-[12px] overflow-hidden flex-shrink-0">
+          {item.image && <img src={item.image} alt={item.name} className="w-full h-full object-cover" />}
         </div>
-        <div className="flex-1">
-          <h3 className="font-bold text-gray-900 truncate">{item.name}</h3>
-          <div className="font-semibold text-[#004466] mt-1">₦{Number(item.price).toFixed(2)}</div>
-        </div>
-        <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-1 border border-gray-200">
-           {/* Quantity buttons */}
-           <button onClick={() => onQuantityChange(item.id, Math.max(0, quantity - 1))} className="px-2">-</button>
-           <span>{quantity}</span>
-           <button onClick={() => onQuantityChange(item.id, quantity + 1)} className="px-2">+</button>
+        <div className="flex-1 min-w-0 py-0.5">
+          <h3 className="font-semibold text-[16px] text-gray-900 truncate">{item.name}</h3>
+          <p className="text-[13px] text-gray-400 mt-0.5">{item.storeName || "Store Name"}</p>
+          <p className="text-[12px] text-gray-400 mt-0.5">ID: {item.id ? item.id.substring(0, 6).toUpperCase() : 'A25E32'}</p>
+          
+          <div className="flex items-center justify-between mt-2">
+            <div className="font-bold text-[16px] text-[#004466]">₦{Number(item.price).toFixed(0)}</div>
+            <div className="flex items-center gap-2">
+               <button 
+                 onClick={() => onQuantityChange(item.id, Math.max(0, quantity - 1))} 
+                 className="w-7 h-7 flex items-center justify-center bg-gray-200 text-gray-600 rounded-[6px]"
+               >
+                 <Minus size={14} strokeWidth={3} />
+               </button>
+               <span className="font-medium text-[14px] w-4 text-center">{quantity}</span>
+               <button 
+                 onClick={() => onQuantityChange(item.id, quantity + 1)} 
+                 className="w-7 h-7 flex items-center justify-center bg-[#004466] text-white rounded-[6px]"
+               >
+                 <Plus size={14} strokeWidth={3} />
+               </button>
+               <button 
+                 onClick={() => onQuantityChange(item.id, 0)} 
+                 className="w-7 h-7 flex items-center justify-center text-red-500 hover:bg-red-50 rounded-[6px] ml-1 transition-colors"
+               >
+                 <Trash2 size={18} />
+               </button>
+            </div>
+          </div>
         </div>
       </div>
     );
