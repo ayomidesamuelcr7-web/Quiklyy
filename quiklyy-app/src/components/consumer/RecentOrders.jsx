@@ -19,6 +19,7 @@ export default function RecentOrders({ session }) {
         .select(`
           id,
           status,
+          quantity,
           created_at,
           items (
             name,
@@ -30,8 +31,7 @@ export default function RecentOrders({ session }) {
           )
         `)
         .eq('consumer_id', session.user.id)
-        .order('created_at', { ascending: false })
-        .limit(5);
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
 
@@ -46,51 +46,62 @@ export default function RecentOrders({ session }) {
   };
 
   if (loading) {
-    return <div className="py-4 text-gray-500 text-sm">Loading recent purchases...</div>;
+    return <div className="py-10 text-center text-gray-500 text-sm">Loading recent purchases...</div>;
   }
 
   return (
-    <div className="mb-10">
-      <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-        <Clock className="text-brand-accent" size={20} />
-        Recent Purchases
-      </h2>
+    <div className="w-full">
+      <div className="mb-4">
+        <h2 className="text-[22px] font-bold text-[#353535] flex items-center gap-2">
+          <Clock size={24} className="text-[#353535]" />
+          Recent purchases
+        </h2>
+      </div>
       
       {!orders || orders.length === 0 ? (
-        <div className="bg-gray-50 rounded-xl p-6 text-center border border-gray-100">
+        <div className="flex items-center justify-center py-10">
           <p className="text-gray-500">You haven't made any recent purchases yet.</p>
         </div>
       ) : (
-        <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
-          {orders.map((order) => (
-            <div 
-              key={order.id} 
-              className="flex-shrink-0 w-72 bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex gap-4 items-center"
-            >
-              <div className="w-16 h-16 rounded-lg bg-gray-100 flex-shrink-0 overflow-hidden">
-                <img 
-                  src={order.items?.image_url || 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=200&auto=format&fit=crop'} 
-                  alt={order.items?.name} 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="min-w-0 flex-1">
-                <h3 className="font-bold text-gray-900 truncate">{order.items?.name}</h3>
-                <p className="text-sm text-gray-500 truncate">{order.items?.profiles?.business_name}</p>
-                <p className="text-xs text-gray-400 mt-0.5 font-mono">ID: {order.id.substring(0, 6).toUpperCase()}</p>
-                <div className="flex items-center justify-between mt-1">
-                  <span className="font-semibold text-brand-blue">₦{Number(order.items?.discounted_price).toFixed(2)}</span>
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                    order.status === 'completed' ? 'bg-green-100 text-green-700' :
-                    order.status === 'reserved' ? 'bg-orange-100 text-orange-700' :
-                    'bg-gray-100 text-gray-700'
-                  }`}>
-                    {order.status}
-                  </span>
+        <div className="space-y-4">
+          {orders.map((order) => {
+            const qty = order.quantity || 1;
+            const isCompleted = order.status === 'completed';
+            const statusLabel = isCompleted ? 'Completed' : 'Awaiting pickup';
+            const statusBg = isCompleted ? 'bg-[#e6f4ea]' : 'bg-[#fef7e0]';
+            const statusText = isCompleted ? 'text-[#137333]' : 'text-[#b08d00]';
+
+            return (
+              <div 
+                key={order.id} 
+                className="bg-white rounded-[16px] border border-gray-200 overflow-hidden flex flex-row p-3 gap-3 items-center shadow-sm"
+              >
+                <div className="w-[84px] h-[84px] bg-gray-100 rounded-[12px] overflow-hidden flex-shrink-0">
+                  <img 
+                    src={order.items?.image_url || 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=200&auto=format&fit=crop'} 
+                    alt={order.items?.name} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex-1 min-w-0 py-0.5">
+                  <h3 className="font-semibold text-[16px] text-gray-900 truncate">
+                    {qty} {order.items?.name}
+                  </h3>
+                  <p className="text-[13px] text-gray-400 mt-0.5">{order.items?.profiles?.business_name || 'Unknown Store'}</p>
+                  <p className="text-[12px] text-gray-400 mt-0.5 font-mono">ID: {order.id.substring(0, 6).toUpperCase()}</p>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <div className="font-bold text-[16px] text-[#004466]">
+                      ₦{Number(order.items?.discounted_price).toFixed(0)}
+                    </div>
+                    <div className={`px-2.5 py-1 rounded-[8px] text-[12px] font-semibold ${statusBg} ${statusText}`}>
+                      {statusLabel}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
