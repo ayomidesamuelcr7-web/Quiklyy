@@ -23,7 +23,7 @@ export default function ShoppingPage({ items, onAddToCart }) {
         <h2 className="text-[18px] font-bold text-[#353535] mb-4">
           Ending soon near you
         </h2>
-        <div className="grid grid-cols-2 gap-3 pb-24">
+        <div className="flex flex-col gap-4 pb-24">
           {items.map(item => (
             <CartItemCard 
               key={item.id} 
