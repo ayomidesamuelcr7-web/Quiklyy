@@ -8,7 +8,7 @@ export default function StatsCard({ revenueSaved = 0, itemsSoldToday = 0, active
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-[7px] mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-[3px] mb-8">
       {stats.map((stat, idx) => (
         <div key={idx} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md transition-shadow">
           <div>
