@@ -63,7 +63,7 @@ export default function RecentOrders({ session }) {
           <p className="text-gray-500">You haven't made any recent purchases yet.</p>
         </div>
       ) : (
-        <div className="space-y-2.5">
+        <div className="space-y-1">
           {orders.map((order) => {
             const qty = order.quantity || 1;
             const isCompleted = order.status === 'completed';

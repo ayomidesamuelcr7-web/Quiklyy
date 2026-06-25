@@ -11,7 +11,7 @@ export default function ShoppingPage({ items, onAddToCart }) {
     const item = items.find(i => i.id === id);
     const maxStock = item?.stock || 9;
     const finalQuantity = Math.min(Math.max(0, quantity), maxStock);
-    
+
     setQuantities(prev => ({ ...prev, [id]: finalQuantity }));
     onAddToCart(id, finalQuantity);
   };
@@ -34,12 +34,12 @@ export default function ShoppingPage({ items, onAddToCart }) {
         <h2 className="text-[18px] font-bold text-[#353535] mb-4">
           Ending soon near you
         </h2>
-        <div className="flex flex-col gap-4 pb-24">
+        <div className="flex flex-col gap-1 pb-24">
           {feedItems.map(item => (
-            <CartItemCard 
-              key={item.id} 
-              item={item} 
-              quantity={quantities[item.id] || 0} 
+            <CartItemCard
+              key={item.id}
+              item={item}
+              quantity={quantities[item.id] || 0}
               onQuantityChange={handleQuantityChange}
               onClick={() => setSelectedItem(item)}
               isCartView={false}
@@ -52,11 +52,11 @@ export default function ShoppingPage({ items, onAddToCart }) {
       </div>
 
       {selectedItem && (
-        <ProductModal 
-          item={selectedItem} 
+        <ProductModal
+          item={selectedItem}
           cartQuantity={quantities[selectedItem.id] || 0}
-          onClose={() => setSelectedItem(null)} 
-          onAddToCart={handleModalPurchase} 
+          onClose={() => setSelectedItem(null)}
+          onAddToCart={handleModalPurchase}
         />
       )}
     </div>
