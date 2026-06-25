@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Clock, Package, ChevronLeft } from 'lucide-react';
-import { IconMapPin, IconShoppingCart, IconShoppingBag } from '../shared/ui/CustomIcons';
+import { Clock, Package, ChevronLeft, MapPin, ShoppingCart, ShoppingBag } from 'lucide-react';
 
 export default function ProductModal({ item, onClose, onAddToCart }) {
   const [quantity, setQuantity] = useState(1);
@@ -44,7 +43,7 @@ export default function ProductModal({ item, onClose, onAddToCart }) {
 
         <div className="flex justify-between items-end mb-6">
           <div className="flex items-start gap-1.5 flex-1 min-w-0 pr-4">
-            <IconMapPin size={14} className="text-gray-400 mt-1 flex-shrink-0" />
+            <MapPin size={14} strokeWidth={1.5} className="text-gray-400 mt-1 flex-shrink-0" />
             <p className="text-[13px] text-gray-400 leading-tight pr-4">
               {item.distance || 'Local area'}
             </p>
@@ -76,7 +75,7 @@ export default function ProductModal({ item, onClose, onAddToCart }) {
               onClick={handlePurchase}
               className="w-12 h-12 flex-shrink-0 bg-[#e6f0f5] text-[#004466] rounded-[12px] flex items-center justify-center active:scale-95 transition-transform"
             >
-              <IconShoppingCart size={24} />
+              <ShoppingCart size={24} strokeWidth={1.5} />
             </button>
             
             <div className="flex items-center justify-between bg-white border border-gray-200 rounded-full h-12 p-1 w-[100px] flex-shrink-0 shadow-sm">
@@ -99,7 +98,7 @@ export default function ProductModal({ item, onClose, onAddToCart }) {
               onClick={handlePurchase}
               className="flex-1 h-12 bg-[#004466] text-white rounded-[12px] flex items-center justify-center gap-2 font-bold text-[15px] shadow-md active:scale-95 transition-transform"
             >
-              <IconShoppingBag size={20} />
+              <ShoppingBag size={20} strokeWidth={1.5} />
               <span>Purchase</span>
             </button>
           </div>

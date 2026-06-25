@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IconShoppingBag, IconShoppingCart, IconMenu, IconMapPin } from './CustomIcons';
+import { ShoppingBag, ShoppingCart, Menu, MapPin } from 'lucide-react';
 
 const TABS = [
-  { id: 'shopping', label: 'Explore', Icon: IconMapPin },
-  { id: 'cart', label: 'Cart', Icon: IconShoppingCart },
-  { id: 'purchases', label: 'Purchase', Icon: IconShoppingBag },
-  { id: 'menu', label: 'Menu', Icon: IconMenu },
+  { id: 'shopping', label: 'Explore', Icon: MapPin },
+  { id: 'cart', label: 'Cart', Icon: ShoppingCart },
+  { id: 'purchases', label: 'Purchase', Icon: ShoppingBag },
+  { id: 'menu', label: 'Menu', Icon: Menu },
 ];
 
 export default function BottomNav({ activeTab, setActiveTab }) {

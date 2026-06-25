@@ -1,6 +1,6 @@
 import React from 'react';
 import CartItemCard from '../shared/ui/CartItemCard';
-import { IconShoppingCart } from '../shared/ui/CustomIcons';
+import { ShoppingCart } from 'lucide-react';
 
 export default function CartPage({ cart, onQuantityChange, onCheckout }) {
   const cartItems = Object.values(cart).filter(item => item.quantity > 0);
@@ -12,7 +12,7 @@ export default function CartPage({ cart, onQuantityChange, onCheckout }) {
     <div className="animate-slide-up flex flex-col min-h-[calc(100vh-160px)] pt-6 px-5 pb-6">
       <div className="mb-4">
         <h2 className="text-[22px] font-bold text-[#353535] flex items-center gap-2">
-          <IconShoppingCart size={24} className="text-[#353535]" />
+          <ShoppingCart size={24} strokeWidth={1.5} className="text-[#353535]" />
           Cart
         </h2>
       </div>
