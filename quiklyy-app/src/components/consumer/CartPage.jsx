@@ -22,7 +22,7 @@ export default function CartPage({ cart, onQuantityChange, onCheckout }) {
           <p className="text-gray-500">Your cart is empty.</p>
         </div>
       ) : (
-        <div className="flex-1 space-y-[3px]">
+        <div className="flex-1 space-y-4">
           {cartItems.map(item => (
             <CartItemCard 
               key={item.id} 

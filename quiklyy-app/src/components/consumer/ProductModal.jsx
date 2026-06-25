@@ -59,7 +59,7 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
 
       {/* Bottom Action Area */}
       <div className="fixed bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-white via-white to-white/90 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
-        <div className="bg-[#f9f9f9] rounded-[20px] p-4 flex flex-col gap-[3px] shadow-sm border border-gray-100">
+        <div className="bg-[#f9f9f9] rounded-[20px] p-4 flex flex-col gap-4 shadow-sm border border-gray-100">
           
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2 text-[#353535]">
