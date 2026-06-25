@@ -34,7 +34,7 @@ export default function ShoppingPage({ items, onAddToCart }) {
         <h2 className="text-[18px] font-bold text-[#353535] mb-4">
           Ending soon near you
         </h2>
-        <div className="flex flex-col gap-1 pb-24">
+        <div className="flex flex-col gap-[0.7rem] pb-24">
           {feedItems.map(item => (
             <CartItemCard
               key={item.id}
