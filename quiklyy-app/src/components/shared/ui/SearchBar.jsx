@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 
 export default function SearchBar() {
   const categories = ['All', 'Groceries', 'Meals', 'Bakery'];
+  const [activeCategory, setActiveCategory] = useState('All');
 
   return (
     <div className="flex flex-col gap-4 mb-6">
@@ -13,19 +15,20 @@ export default function SearchBar() {
             placeholder="Search for local deals..."
           />
         </div>
-        <button className="flex items-center justify-center p-3 border border-gray-200 rounded-xl bg-white text-gray-600">
+        <button className="flex items-center justify-center p-3 border border-gray-200 rounded-xl bg-white text-gray-600 hover:bg-gray-50 transition-colors">
           <SlidersHorizontal size={20} strokeWidth={1.5} />
         </button>
       </div>
       
       <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        {categories.map((category, idx) => (
+        {categories.map((category) => (
           <button
             key={category}
+            onClick={() => setActiveCategory(category)}
             className={`whitespace-nowrap px-5 py-1.5 rounded-full text-[13px] font-medium transition-colors ${
-              idx === 0 
-                ? 'bg-[#004466] text-white' 
-                : 'bg-[#f2f2f2] text-gray-800'
+              activeCategory === category 
+                ? 'bg-[#004466] text-white shadow-md' 
+                : 'bg-[#f2f2f2] text-gray-800 hover:bg-[#e6e6e6]'
             }`}
           >
             {category}

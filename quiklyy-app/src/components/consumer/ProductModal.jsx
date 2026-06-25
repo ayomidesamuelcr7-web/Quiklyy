@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Clock, Package, ChevronLeft, MapPin, ShoppingCart, ShoppingBag } from 'lucide-react';
 
-export default function ProductModal({ item, onClose, onAddToCart }) {
+export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToCart }) {
   const [quantity, setQuantity] = useState(1);
 
   if (!item) return null;
+
+  const maxAvailable = (item.stock || 9) - cartQuantity;
 
   const handleDecrease = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
 
   const handleIncrease = () => {
-    if (quantity < (item.stock || 9)) setQuantity(quantity + 1);
+    if (quantity < maxAvailable) setQuantity(quantity + 1);
   };
 
   const handlePurchase = () => {

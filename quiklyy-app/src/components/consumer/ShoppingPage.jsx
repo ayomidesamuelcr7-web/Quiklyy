@@ -8,13 +8,24 @@ export default function ShoppingPage({ items, onAddToCart }) {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleQuantityChange = (id, quantity) => {
-    setQuantities(prev => ({ ...prev, [id]: quantity }));
-    onAddToCart(id, quantity);
+    const item = items.find(i => i.id === id);
+    const maxStock = item?.stock || 9;
+    const finalQuantity = Math.min(Math.max(0, quantity), maxStock);
+    
+    setQuantities(prev => ({ ...prev, [id]: finalQuantity }));
+    onAddToCart(id, finalQuantity);
   };
 
   const handleModalPurchase = (id, quantity) => {
     handleQuantityChange(id, (quantities[id] || 0) + quantity);
   };
+
+  // Filter out items that have been fully purchased
+  const feedItems = items.filter(item => {
+    const maxStock = item.stock || 9;
+    const cartQty = quantities[item.id] || 0;
+    return maxStock > cartQty;
+  });
 
   return (
     <div className="animate-slide-up bg-[#f9f9f9] min-h-screen px-5 py-4">
@@ -24,7 +35,7 @@ export default function ShoppingPage({ items, onAddToCart }) {
           Ending soon near you
         </h2>
         <div className="flex flex-col gap-4 pb-24">
-          {items.map(item => (
+          {feedItems.map(item => (
             <CartItemCard 
               key={item.id} 
               item={item} 
@@ -34,12 +45,16 @@ export default function ShoppingPage({ items, onAddToCart }) {
               isCartView={false}
             />
           ))}
+          {feedItems.length === 0 && (
+            <p className="text-gray-500 text-center py-8">No more deals available right now.</p>
+          )}
         </div>
       </div>
 
       {selectedItem && (
         <ProductModal 
           item={selectedItem} 
+          cartQuantity={quantities[selectedItem.id] || 0}
           onClose={() => setSelectedItem(null)} 
           onAddToCart={handleModalPurchase} 
         />
