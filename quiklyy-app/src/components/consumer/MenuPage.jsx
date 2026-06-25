@@ -52,7 +52,7 @@ export default function MenuPage({ session, onLogout }) {
 
       <div className="px-5 space-y-6">
         {sections.map((section, idx) => (
-          <div key={idx} className="space-y-1">
+          <div key={idx} className="space-y-[7px]">
             <h2 className="text-[17px] font-bold pb-2">{section.title}</h2>
             <div className="flex flex-col">
               {section.items.map((item) => {
