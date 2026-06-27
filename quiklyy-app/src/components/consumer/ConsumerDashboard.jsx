@@ -16,6 +16,7 @@ import CountryDetails from './CountryDetails';
 import LanguageDetails from './LanguageDetails';
 import CurrencyDetails from './CurrencyDetails';
 import ContactDetails from './ContactDetails';
+import FeedbackDetails from './FeedbackDetails';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 export default function ConsumerDashboard({ session, onLogout }) {
@@ -170,6 +171,7 @@ export default function ConsumerDashboard({ session, onLogout }) {
             <Route path="language" element={<LanguageDetails />} />
             <Route path="currency" element={<CurrencyDetails />} />
             <Route path="contact" element={<ContactDetails />} />
+            <Route path="feedback" element={<FeedbackDetails />} />
             <Route path="*" element={<Navigate to="shop" replace />} />
           </Routes>
 
