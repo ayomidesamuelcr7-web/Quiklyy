@@ -13,6 +13,7 @@ import PasswordDetails from './PasswordDetails';
 import NotificationDetails from './NotificationDetails';
 import DeactivateDetails from './DeactivateDetails';
 import CountryDetails from './CountryDetails';
+import LanguageDetails from './LanguageDetails';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 export default function ConsumerDashboard({ session, onLogout }) {
@@ -164,6 +165,7 @@ export default function ConsumerDashboard({ session, onLogout }) {
             <Route path="notification" element={<NotificationDetails />} />
             <Route path="deactivate" element={<DeactivateDetails />} />
             <Route path="country" element={<CountryDetails />} />
+            <Route path="language" element={<LanguageDetails />} />
             <Route path="*" element={<Navigate to="shop" replace />} />
           </Routes>
 

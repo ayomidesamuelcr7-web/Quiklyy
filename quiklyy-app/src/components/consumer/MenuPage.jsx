@@ -77,6 +77,8 @@ export default function MenuPage({ session, onLogout }) {
                         navigate('/consumer/cart');
                       } else if (item.id === 'country') {
                         navigate('/consumer/country');
+                      } else if (item.id === 'language') {
+                        navigate('/consumer/language');
                       }
                     }}
                     className="w-full flex items-center py-3.5 hover:bg-gray-50 transition-colors"
