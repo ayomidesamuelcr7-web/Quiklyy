@@ -1,7 +1,7 @@
 import { Plus, Image as ImageIcon } from 'lucide-react';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
@@ -19,7 +19,7 @@ const itemSchema = z.object({
 });
 
 export default function AddItemForm({ onAdd, submitting }) {
-  const { register, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, setValue, control, reset, formState: { errors } } = useForm({
     resolver: zodResolver(itemSchema),
     defaultValues: {
       name: '',
@@ -29,7 +29,7 @@ export default function AddItemForm({ onAdd, submitting }) {
   });
 
   const fileInputRef = useRef(null);
-  const imageFiles = watch('imageFiles');
+  const imageFiles = useWatch({ control, name: 'imageFiles' });
 
   const onSubmit = (data) => {
     if (onAdd) {
