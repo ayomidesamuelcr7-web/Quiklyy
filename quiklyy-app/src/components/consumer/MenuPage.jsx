@@ -73,6 +73,8 @@ export default function MenuPage({ session, onLogout }) {
                         navigate('/consumer/deactivate');
                       } else if (item.id === 'purchase-history') {
                         navigate('/consumer/orders');
+                      } else if (item.id === 'cart') {
+                        navigate('/consumer/cart');
                       }
                     }}
                     className="w-full flex items-center py-3.5 hover:bg-gray-50 transition-colors"
