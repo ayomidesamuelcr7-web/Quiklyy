@@ -22,6 +22,7 @@ import LegalDetails from './LegalDetails';
 import PrivacyPolicy from './PrivacyPolicy';
 import TermsDetails from './TermsDetails';
 import CookiePolicy from './CookiePolicy';
+import NotificationsFeed from './NotificationsFeed';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 export default function ConsumerDashboard({ session, onLogout }) {
@@ -182,6 +183,7 @@ export default function ConsumerDashboard({ session, onLogout }) {
             <Route path="privacy" element={<PrivacyPolicy />} />
             <Route path="terms" element={<TermsDetails />} />
             <Route path="cookie" element={<CookiePolicy />} />
+            <Route path="notifications-feed" element={<NotificationsFeed />} />
             <Route path="*" element={<Navigate to="shop" replace />} />
           </Routes>
 
