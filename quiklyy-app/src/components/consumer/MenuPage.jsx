@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   User, Lock, Bell, Ban, 
   ShoppingBag, ShoppingCart, 
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function MenuPage({ session, onLogout }) {
   const navigate = useNavigate();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const sections = [
     {
       title: 'Account & profile',
@@ -106,7 +107,7 @@ export default function MenuPage({ session, onLogout }) {
         {/* Logout Button */}
         <div className="pt-2">
           <button 
-            onClick={onLogout}
+            onClick={() => setIsLogoutModalOpen(true)}
             className="w-full flex items-center py-3.5 hover:bg-gray-50 transition-colors"
           >
             <LogOut size={24} className="text-[#E02424] mr-4" strokeWidth={1.75} />
@@ -115,6 +116,36 @@ export default function MenuPage({ session, onLogout }) {
           </button>
         </div>
       </div>
+
+      {/* Logout Modal Overlay */}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-5 bg-black/40 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-sm text-center shadow-xl animate-slide-up">
+            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 text-[#E02424]">
+              <LogOut size={28} strokeWidth={2} />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Log Out?</h3>
+            <p className="text-gray-500 text-[15px] mb-8 px-2">
+              Are you sure you want to log out of your account?
+            </p>
+            <div className="flex flex-col gap-3">
+              <button 
+                onClick={onLogout}
+                className="w-full bg-[#E02424] text-white font-medium text-[16px] py-3.5 rounded-full hover:bg-red-700 transition-colors"
+              >
+                Log Out
+              </button>
+              <button 
+                onClick={() => setIsLogoutModalOpen(false)}
+                className="w-full bg-white text-gray-700 font-medium text-[16px] py-3.5 rounded-full hover:bg-gray-50 border border-gray-200 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
