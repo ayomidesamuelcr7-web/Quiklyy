@@ -31,7 +31,7 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
         <h1 className="text-[18px] font-bold text-[#353535]">Item details</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-5 pb-28 hide-scrollbar">
+      <div className="flex-1 overflow-y-auto px-5 pb-6 hide-scrollbar">
         {/* Product Image */}
         <div className="w-full aspect-[3/4] sm:aspect-square bg-gray-100 rounded-[16px] overflow-hidden mb-5">
           <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
@@ -69,7 +69,7 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
         </div>
 
         {/* Action Area inline */}
-        <div className="flex items-center gap-3 pb-8">
+        <div className="flex items-center gap-3">
           <button 
             onClick={handlePurchase}
             className="w-12 h-12 flex-shrink-0 bg-[#d4effa] text-[#004466] rounded-[12px] flex items-center justify-center active:scale-95 transition-transform"
