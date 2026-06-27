@@ -20,6 +20,7 @@ import FeedbackDetails from './FeedbackDetails';
 import HelpDetails from './HelpDetails';
 import LegalDetails from './LegalDetails';
 import PrivacyPolicy from './PrivacyPolicy';
+import TermsDetails from './TermsDetails';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 export default function ConsumerDashboard({ session, onLogout }) {
@@ -178,6 +179,7 @@ export default function ConsumerDashboard({ session, onLogout }) {
             <Route path="help" element={<HelpDetails />} />
             <Route path="legal" element={<LegalDetails />} />
             <Route path="privacy" element={<PrivacyPolicy />} />
+            <Route path="terms" element={<TermsDetails />} />
             <Route path="*" element={<Navigate to="shop" replace />} />
           </Routes>
 

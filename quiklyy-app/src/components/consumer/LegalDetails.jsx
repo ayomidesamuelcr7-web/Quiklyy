@@ -37,6 +37,8 @@ export default function LegalDetails() {
                 onClick={() => {
                   if (doc.id === 'privacy') {
                     navigate('/consumer/privacy');
+                  } else if (doc.id === 'terms') {
+                    navigate('/consumer/terms');
                   }
                 }}
                 className={`flex items-center justify-between w-full px-5 py-4 text-left hover:bg-gray-50 transition-colors ${
