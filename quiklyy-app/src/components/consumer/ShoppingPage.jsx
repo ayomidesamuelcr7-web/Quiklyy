@@ -29,27 +29,31 @@ export default function ShoppingPage({ items, onAddToCart }) {
 
   return (
     <div className="animate-slide-up bg-[#f9f9f9] min-h-screen px-5 py-4">
-      <SearchBar />
-      <div className="mt-2">
-        <h2 className="text-[18px] font-bold text-[#353535] mb-4">
-          Ending soon near you
-        </h2>
-        <div className="flex flex-col gap-[0.7rem] pb-24">
-          {feedItems.map(item => (
-            <CartItemCard
-              key={item.id}
-              item={item}
-              quantity={quantities[item.id] || 0}
-              onQuantityChange={handleQuantityChange}
-              onClick={() => setSelectedItem(item)}
-              isCartView={false}
-            />
-          ))}
-          {feedItems.length === 0 && (
-            <p className="text-gray-500 text-center py-8">No more deals available right now.</p>
-          )}
-        </div>
-      </div>
+      {!selectedItem && (
+        <>
+          <SearchBar />
+          <div className="mt-2">
+            <h2 className="text-[18px] font-bold text-[#353535] mb-4">
+              Ending soon near you
+            </h2>
+            <div className="flex flex-col gap-[0.7rem] pb-24">
+              {feedItems.map(item => (
+                <CartItemCard
+                  key={item.id}
+                  item={item}
+                  quantity={quantities[item.id] || 0}
+                  onQuantityChange={handleQuantityChange}
+                  onClick={() => setSelectedItem(item)}
+                  isCartView={false}
+                />
+              ))}
+              {feedItems.length === 0 && (
+                <p className="text-gray-500 text-center py-8">No more deals available right now.</p>
+              )}
+            </div>
+          </div>
+        </>
+      )}
 
       {selectedItem && (
         <ProductModal

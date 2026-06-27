@@ -22,7 +22,7 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
   };
 
   return (
-    <div className="fixed inset-0 z-[100] bg-white flex flex-col animate-slide-up pb-[env(safe-area-inset-bottom)]">
+    <div className="bg-white flex flex-col animate-slide-up pb-[env(safe-area-inset-bottom)] -mx-5 -mt-4 min-h-[calc(100vh-140px)]">
       {/* Header */}
       <div className="relative flex items-center justify-center pt-6 pb-4 px-5">
         <button onClick={onClose} className="absolute left-5 text-[#353535]">
@@ -31,7 +31,7 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
         <h1 className="text-[18px] font-bold text-[#353535]">Item details</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-5 pb-6 hide-scrollbar">
+      <div className="px-5 pb-6">
         {/* Product Image */}
         <div className="w-full aspect-[3/4] sm:aspect-square bg-gray-100 rounded-[16px] overflow-hidden mb-5">
           <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
