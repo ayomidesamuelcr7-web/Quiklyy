@@ -1,8 +1,16 @@
 import React from 'react';
 import CartItemCard from '../shared/ui/CartItemCard';
 import { ShoppingCart } from 'lucide-react';
+import useCartStore from '../../store/useCartStore';
 
-export default function CartPage({ cart, onQuantityChange, onCheckout }) {
+export default function CartPage({ onCheckout }) {
+  const cart = useCartStore(state => state.cart);
+  const updateQuantity = useCartStore(state => state.updateQuantity);
+
+  const handleQuantityChange = (id, quantity) => {
+    const item = cart[id];
+    if (item) updateQuantity(item, quantity);
+  };
   const cartItems = Object.values(cart).filter(item => item.quantity > 0);
   
   const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -28,7 +36,7 @@ export default function CartPage({ cart, onQuantityChange, onCheckout }) {
               key={item.id} 
               item={item} 
               quantity={item.quantity} 
-              onQuantityChange={onQuantityChange} 
+              onQuantityChange={handleQuantityChange} 
               isCartView={true}
             />
           ))}

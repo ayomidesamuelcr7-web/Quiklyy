@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
+import useCartStore from '../../store/useCartStore';
 import toast from 'react-hot-toast';
 import ConsumerHeader from './ConsumerHeader';
 import BottomNav from '../shared/ui/BottomNav';
@@ -12,8 +13,10 @@ export default function ConsumerDashboard({ session, onLogout }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('shopping');
-  const [cart, setCart] = useState({});
   const [reserving, setReserving] = useState(false);
+
+  const cart = useCartStore((state) => state.cart);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   useEffect(() => {
     fetchItems();
@@ -56,30 +59,7 @@ export default function ConsumerDashboard({ session, onLogout }) {
     }
   };
 
-  const handleAddToCart = (id, quantity) => {
-    setCart(prev => {
-      const newCart = { ...prev };
-      const item = items.find(i => i.id === id);
-      if (quantity <= 0) {
-        delete newCart[id];
-      } else if (item) {
-        newCart[id] = { ...item, quantity };
-      }
-      return newCart;
-    });
-  };
 
-  const handleQuantityChange = (id, quantity) => {
-    setCart(prev => {
-      const newCart = { ...prev };
-      if (quantity <= 0) {
-        delete newCart[id];
-      } else if (newCart[id]) {
-        newCart[id].quantity = quantity;
-      }
-      return newCart;
-    });
-  };
 
   const handleCheckout = async () => {
     const cartItems = Object.values(cart);
@@ -108,7 +88,7 @@ export default function ConsumerDashboard({ session, onLogout }) {
       }
 
       toast.success('Checkout successful! Check your orders.');
-      setCart({});
+      clearCart();
       setActiveTab('purchases');
       fetchItems();
     } catch (error) {
@@ -159,16 +139,12 @@ export default function ConsumerDashboard({ session, onLogout }) {
             loading ? (
               <p className="text-gray-500 text-center py-12">Loading deals from local businesses...</p>
             ) : (
-              <ShoppingPage items={items} onAddToCart={handleAddToCart} />
+              <ShoppingPage items={items} />
             )
           )}
 
           {activeTab === 'cart' && (
-            <CartPage 
-              cart={cart} 
-              onQuantityChange={handleQuantityChange} 
-              onCheckout={handleCheckout} 
-            />
+            <CartPage onCheckout={handleCheckout} />
           )}
 
           {activeTab === 'purchases' && (

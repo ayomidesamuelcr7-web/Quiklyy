@@ -2,28 +2,29 @@ import React, { useState } from 'react';
 import SearchBar from '../shared/ui/SearchBar';
 import CartItemCard from '../shared/ui/CartItemCard';
 import ProductModal from './ProductModal';
+import useCartStore from '../../store/useCartStore';
 
-export default function ShoppingPage({ items, onAddToCart }) {
-  const [quantities, setQuantities] = useState({});
+export default function ShoppingPage({ items }) {
+  const cart = useCartStore(state => state.cart);
+  const updateQuantity = useCartStore(state => state.updateQuantity);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleQuantityChange = (id, quantity) => {
     const item = items.find(i => i.id === id);
-    const maxStock = item?.stock || 9;
-    const finalQuantity = Math.min(Math.max(0, quantity), maxStock);
-
-    setQuantities(prev => ({ ...prev, [id]: finalQuantity }));
-    onAddToCart(id, finalQuantity);
+    if (item) {
+      updateQuantity(item, quantity);
+    }
   };
 
   const handleModalPurchase = (id, quantity) => {
-    handleQuantityChange(id, (quantities[id] || 0) + quantity);
+    const currentQty = cart[id]?.quantity || 0;
+    handleQuantityChange(id, currentQty + quantity);
   };
 
   // Filter out items that have been fully purchased
   const feedItems = items.filter(item => {
     const maxStock = item.stock || 9;
-    const cartQty = quantities[item.id] || 0;
+    const cartQty = cart[item.id]?.quantity || 0;
     return maxStock > cartQty;
   });
 
@@ -41,7 +42,7 @@ export default function ShoppingPage({ items, onAddToCart }) {
                 <CartItemCard
                   key={item.id}
                   item={item}
-                  quantity={quantities[item.id] || 0}
+                  quantity={cart[item.id]?.quantity || 0}
                   onQuantityChange={handleQuantityChange}
                   onClick={() => setSelectedItem(item)}
                   isCartView={false}
@@ -58,7 +59,7 @@ export default function ShoppingPage({ items, onAddToCart }) {
       {selectedItem && (
         <ProductModal
           item={selectedItem}
-          cartQuantity={quantities[selectedItem.id] || 0}
+          cartQuantity={cart[selectedItem.id]?.quantity || 0}
           onClose={() => setSelectedItem(null)}
           onAddToCart={handleModalPurchase}
         />
