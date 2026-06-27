@@ -69,6 +69,8 @@ export default function MenuPage({ session, onLogout }) {
                         navigate('/consumer/password');
                       } else if (item.id === 'notification') {
                         navigate('/consumer/notification');
+                      } else if (item.id === 'deactivate') {
+                        navigate('/consumer/deactivate');
                       }
                     }}
                     className="w-full flex items-center py-3.5 hover:bg-gray-50 transition-colors"
