@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Clock, Package, ChevronLeft, MapPin, ShoppingCart, ShoppingBag } from 'lucide-react';
+import { Clock, Package, ChevronLeft, MapPin, ShoppingCart, ShoppingBag, Store } from 'lucide-react';
 
 export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToCart }) {
   const [quantity, setQuantity] = useState(1);
@@ -31,7 +31,7 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
         <h1 className="text-[18px] font-bold text-[#353535]">Item details</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-5 pb-40 hide-scrollbar">
+      <div className="flex-1 overflow-y-auto px-5 pb-28 hide-scrollbar">
         {/* Product Image */}
         <div className="w-full aspect-[3/4] sm:aspect-square bg-gray-100 rounded-[16px] overflow-hidden mb-5">
           <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
@@ -40,7 +40,11 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
         {/* Details */}
         <div className="mb-2">
           <h2 className="text-[22px] font-bold text-[#353535]">{item.name}</h2>
-          <p className="text-[15px] text-gray-400 mt-1">{item.storeName || 'Quiklyy Partner'}</p>
+        </div>
+
+        <div className="flex items-center gap-1.5 mb-1.5 mt-2">
+          <Store size={14} strokeWidth={1.5} className="text-gray-400 flex-shrink-0" />
+          <p className="text-[15px] text-gray-400">{item.storeName || 'Quiklyy Partner'}</p>
         </div>
 
         <div className="flex items-center gap-1.5 mb-2">
@@ -66,41 +70,38 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
       </div>
 
       {/* Bottom Action Area */}
-      <div className="fixed bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-white via-white to-white/90 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
-        <div className="bg-white rounded-[20px] p-4 flex flex-col gap-4 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border border-gray-100">
-
-          <div className="flex items-center gap-3">
+      <div className="fixed bottom-0 left-0 right-0 p-5 bg-white border-t border-gray-100 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={handlePurchase}
+            className="w-12 h-12 flex-shrink-0 bg-[#d4effa] text-[#004466] rounded-[12px] flex items-center justify-center active:scale-95 transition-transform"
+          >
+            <ShoppingCart size={22} strokeWidth={1.5} />
+          </button>
+          
+          <div className="flex items-center justify-between bg-white border border-gray-100 shadow-sm rounded-full h-[46px] p-1 w-[105px] flex-shrink-0">
             <button 
-              onClick={handlePurchase}
-              className="w-12 h-12 flex-shrink-0 bg-[#e6f0f5] text-[#004466] rounded-[12px] flex items-center justify-center active:scale-95 transition-transform"
+              onClick={handleDecrease}
+              className="w-9 h-9 flex items-center justify-center bg-[#eaeaea] text-gray-600 rounded-full font-bold text-[18px]"
             >
-              <ShoppingCart size={24} strokeWidth={1.5} />
+              -
             </button>
-            
-            <div className="flex items-center justify-between bg-white border border-gray-200 rounded-full h-12 p-1 w-[100px] flex-shrink-0 shadow-sm">
-              <button 
-                onClick={handleDecrease}
-                className="w-9 h-9 flex items-center justify-center bg-[#f2f2f2] text-gray-600 rounded-full font-medium"
-              >
-                -
-              </button>
-              <span className="font-bold text-[14px] text-[#353535] flex-1 text-center">{quantity}</span>
-              <button 
-                onClick={handleIncrease}
-                className="w-9 h-9 flex items-center justify-center bg-[#004466] text-white rounded-full font-bold"
-              >
-                +
-              </button>
-            </div>
-
+            <span className="font-bold text-[16px] text-[#353535] flex-1 text-center">{quantity}</span>
             <button 
-              onClick={handlePurchase}
-              className="flex-1 h-12 bg-[#004466] text-white rounded-[12px] flex items-center justify-center gap-2 font-bold text-[15px] shadow-md active:scale-95 transition-transform"
+              onClick={handleIncrease}
+              className="w-9 h-9 flex items-center justify-center bg-[#004466] text-white rounded-full font-bold text-[18px]"
             >
-              <ShoppingBag size={20} strokeWidth={1.5} />
-              <span>Purchase</span>
+              +
             </button>
           </div>
+
+          <button 
+            onClick={handlePurchase}
+            className="flex-1 h-12 bg-[#004466] text-white rounded-[12px] flex items-center justify-center gap-2 font-bold text-[15px] shadow-sm active:scale-95 transition-transform"
+          >
+            <ShoppingBag size={18} strokeWidth={2} />
+            <span>Purchase</span>
+          </button>
         </div>
       </div>
 
