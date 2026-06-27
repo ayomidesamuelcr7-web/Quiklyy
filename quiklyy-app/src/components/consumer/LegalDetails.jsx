@@ -35,7 +35,9 @@ export default function LegalDetails() {
               <button
                 key={doc.id}
                 onClick={() => {
-                  // Navigate to specific document viewer, or open external link
+                  if (doc.id === 'privacy') {
+                    navigate('/consumer/privacy');
+                  }
                 }}
                 className={`flex items-center justify-between w-full px-5 py-4 text-left hover:bg-gray-50 transition-colors ${
                   index !== DOCUMENTS.length - 1 ? 'border-b border-gray-100' : ''
