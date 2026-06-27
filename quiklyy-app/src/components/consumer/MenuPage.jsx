@@ -65,6 +65,8 @@ export default function MenuPage({ session, onLogout }) {
                     onClick={() => {
                       if (item.id === 'profile') {
                         navigate('/consumer/profile');
+                      } else if (item.id === 'password') {
+                        navigate('/consumer/password');
                       }
                     }}
                     className="w-full flex items-center py-3.5 hover:bg-gray-50 transition-colors"
