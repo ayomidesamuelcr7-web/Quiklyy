@@ -40,37 +40,34 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
         {/* Details */}
         <div className="mb-2">
           <h2 className="text-[22px] font-bold text-[#353535]">{item.name}</h2>
-          <p className="text-[15px] text-gray-400 mt-0.5">{item.storeName || 'Quiklyy Partner'}</p>
+          <p className="text-[15px] text-gray-400 mt-1">{item.storeName || 'Quiklyy Partner'}</p>
         </div>
 
-        <div className="flex justify-between items-end mb-6">
-          <div className="flex items-start gap-1.5 flex-1 min-w-0 pr-4">
-            <MapPin size={14} strokeWidth={1.5} className="text-gray-400 mt-1 flex-shrink-0" />
-            <p className="text-[13px] text-gray-400 leading-tight pr-4">
-              {item.distance || 'Local area'}
-            </p>
-          </div>
-          <div className="text-right flex-shrink-0">
-             <div className="text-[14px] text-gray-400 line-through font-medium">₦{item.originalPrice || (item.price * 2)}</div>
-             <div className="font-bold text-[32px] text-[#004466] leading-none">₦{item.price}</div>
+        <div className="flex items-center gap-1.5 mb-2">
+          <MapPin size={14} strokeWidth={1.5} className="text-gray-400 flex-shrink-0" />
+          <p className="text-[13px] text-gray-400">
+            {item.distance || 'Local area'}
+          </p>
+        </div>
+
+        <div className="flex justify-end items-center gap-2 mb-6">
+          <div className="text-[16px] text-gray-600 line-through font-bold mt-2">₦{item.originalPrice || (item.price * 2)}</div>
+          <div className="font-bold text-[36px] text-[#004466] leading-none">₦{item.price}</div>
+        </div>
+
+        {/* Availability Box */}
+        <div className="bg-[#f5f5f5] rounded-[16px] p-4 flex items-center gap-3 mb-6">
+          <Package size={24} strokeWidth={1.5} className="text-[#353535] flex-shrink-0" />
+          <div className="flex flex-col">
+            <span className="font-bold text-[14px] text-[#353535]">{item.stock || 9} items available</span>
+            <span className="text-[13px] text-gray-400 mt-0.5">Stock is limited. First come, first served.</span>
           </div>
         </div>
       </div>
 
       {/* Bottom Action Area */}
       <div className="fixed bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-white via-white to-white/90 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
-        <div className="bg-[#f9f9f9] rounded-[20px] p-4 flex flex-col gap-4 shadow-sm border border-gray-100">
-          
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2 text-[#353535]">
-              <Package size={18} strokeWidth={2} />
-              <span className="font-semibold text-[14px]">{item.stock || 9} items available</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-400">
-              <Clock size={18} strokeWidth={2} />
-              <span className="text-[14px]">Store closes at 9pm</span>
-            </div>
-          </div>
+        <div className="bg-white rounded-[20px] p-4 flex flex-col gap-4 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border border-gray-100">
 
           <div className="flex items-center gap-3">
             <button 
