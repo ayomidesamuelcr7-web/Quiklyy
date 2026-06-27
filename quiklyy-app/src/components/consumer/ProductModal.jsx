@@ -60,18 +60,16 @@ export default function ProductModal({ item, cartQuantity = 0, onClose, onAddToC
         </div>
 
         {/* Availability Box */}
-        <div className="bg-[#f5f5f5] rounded-[16px] p-4 flex items-center gap-3 mb-6">
+        <div className="bg-[#f5f5f5] rounded-[16px] p-4 flex items-center gap-3 mb-8">
           <Package size={24} strokeWidth={1.5} className="text-[#353535] flex-shrink-0" />
           <div className="flex flex-col">
             <span className="font-bold text-[14px] text-[#353535]">{item.stock || 9} items available</span>
             <span className="text-[13px] text-gray-400 mt-0.5">Stock is limited. First come, first served.</span>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Action Area */}
-      <div className="fixed bottom-0 left-0 right-0 p-5 bg-white border-t border-gray-100 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
-        <div className="flex items-center gap-3">
+        {/* Action Area inline */}
+        <div className="flex items-center gap-3 pb-8">
           <button 
             onClick={handlePurchase}
             className="w-12 h-12 flex-shrink-0 bg-[#d4effa] text-[#004466] rounded-[12px] flex items-center justify-center active:scale-95 transition-transform"
