@@ -10,6 +10,7 @@ import PurchaseScreen from './PurchaseScreen';
 import MenuPage from './MenuPage';
 import ProfileDetails from './ProfileDetails';
 import PasswordDetails from './PasswordDetails';
+import NotificationDetails from './NotificationDetails';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 export default function ConsumerDashboard({ session, onLogout }) {
@@ -158,6 +159,7 @@ export default function ConsumerDashboard({ session, onLogout }) {
             <Route path="menu" element={<MenuPage session={session} onLogout={onLogout} />} />
             <Route path="profile" element={<ProfileDetails />} />
             <Route path="password" element={<PasswordDetails />} />
+            <Route path="notification" element={<NotificationDetails />} />
             <Route path="*" element={<Navigate to="shop" replace />} />
           </Routes>
 
