@@ -87,6 +87,8 @@ export default function MenuPage({ session, onLogout }) {
                         navigate('/consumer/feedback');
                       } else if (item.id === 'help') {
                         navigate('/consumer/help');
+                      } else if (item.id === 'legal') {
+                        navigate('/consumer/legal');
                       }
                     }}
                     className="w-full flex items-center py-3.5 hover:bg-gray-50 transition-colors"
