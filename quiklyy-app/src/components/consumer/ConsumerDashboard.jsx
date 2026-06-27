@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
+import toast from 'react-hot-toast';
 import ConsumerHeader from './ConsumerHeader';
 import BottomNav from '../shared/ui/BottomNav';
 import ShoppingPage from './ShoppingPage';
@@ -106,13 +107,13 @@ export default function ConsumerDashboard({ session, onLogout }) {
           .eq('id', item.id);
       }
 
-      alert('Checkout successful! Check your orders.');
+      toast.success('Checkout successful! Check your orders.');
       setCart({});
       setActiveTab('purchases');
       fetchItems();
     } catch (error) {
       console.error('Error during checkout:', error.message);
-      alert('Failed to complete checkout.');
+      toast.error('Failed to complete checkout.');
     } finally {
       setReserving(false);
     }

@@ -47,8 +47,8 @@ create policy "Items are viewable by everyone."
 create policy "Businesses can insert their own items."
   on items for insert with check ( auth.uid() = business_id );
 
-create policy "Anyone can update items."
-  on items for update using ( auth.role() = 'authenticated' );
+create policy "Businesses can update their own items."
+  on items for update using ( auth.uid() = business_id );
 
 create policy "Businesses can delete their own items."
   on items for delete using ( auth.uid() = business_id );

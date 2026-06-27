@@ -4,6 +4,7 @@ import AddItemForm from './AddItemForm';
 import InventoryList from './InventoryList';
 import OrdersList from './OrdersList';
 import { supabase } from '../../lib/supabaseClient';
+import toast from 'react-hot-toast';
 import BusinessHeader from './BusinessHeader';
 import { startOfDay } from 'date-fns';
 import { Search } from 'lucide-react';
@@ -115,7 +116,7 @@ export default function BusinessDashboard({ session, onLogout }) {
       setOrders(orders.map(o => o.id === orderId ? { ...o, status: 'completed' } : o));
     } catch (error) {
       console.error('Error completing order:', error.message);
-      alert('Failed to complete order. Please try again.');
+      toast.error('Failed to complete order. Please try again.');
     }
   };
 
@@ -181,7 +182,7 @@ export default function BusinessDashboard({ session, onLogout }) {
       }
     } catch (error) {
       console.error('Error adding item:', error.message);
-      alert('Failed to add item. Please try again.');
+      toast.error('Failed to add item. Please try again.');
     } finally {
       setSubmitting(false);
     }

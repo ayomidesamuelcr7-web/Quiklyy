@@ -1,5 +1,6 @@
 import { Plus, Image as ImageIcon } from 'lucide-react';
 import { useState, useRef } from 'react';
+import toast from 'react-hot-toast';
 
 export default function AddItemForm({ onAdd, submitting }) {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ export default function AddItemForm({ onAdd, submitting }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (imageFiles.length === 0) {
-      alert("Please select at least one image for this item.");
+      toast.error("Please select at least one image for this item.");
       return;
     }
     if (onAdd) {
