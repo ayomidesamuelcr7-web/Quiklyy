@@ -6,8 +6,10 @@ import {
   Mail, MessageSquareWarning, HelpCircle, FileText, 
   LogOut, ChevronRight 
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function MenuPage({ session, onLogout }) {
+  const navigate = useNavigate();
   const sections = [
     {
       title: 'Account & profile',
@@ -60,6 +62,11 @@ export default function MenuPage({ session, onLogout }) {
                 return (
                   <button 
                     key={item.id}
+                    onClick={() => {
+                      if (item.id === 'profile') {
+                        navigate('/consumer/profile');
+                      }
+                    }}
                     className="w-full flex items-center py-3.5 hover:bg-gray-50 transition-colors"
                   >
                     <Icon size={24} className="text-gray-700 mr-4" strokeWidth={1.5} />
