@@ -81,6 +81,8 @@ export default function MenuPage({ session, onLogout }) {
                         navigate('/consumer/language');
                       } else if (item.id === 'currency') {
                         navigate('/consumer/currency');
+                      } else if (item.id === 'contact') {
+                        navigate('/consumer/contact');
                       }
                     }}
                     className="w-full flex items-center py-3.5 hover:bg-gray-50 transition-colors"
