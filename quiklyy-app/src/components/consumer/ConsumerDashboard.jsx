@@ -8,19 +8,17 @@ import ShoppingPage from './ShoppingPage';
 import CartPage from './CartPage';
 import PurchaseScreen from './PurchaseScreen';
 import MenuPage from './MenuPage';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 export default function ConsumerDashboard({ session, onLogout }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('shopping');
   const [reserving, setReserving] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const cart = useCartStore((state) => state.cart);
   const clearCart = useCartStore((state) => state.clearCart);
-
-  useEffect(() => {
-    fetchItems();
-  }, []);
 
   const fetchItems = async () => {
     try {
@@ -45,7 +43,7 @@ export default function ConsumerDashboard({ session, onLogout }) {
           storeName: item.profiles?.business_name || 'Unknown Store',
           distance: item.profiles?.address || 'Unknown Location',
           originalPrice: Number(item.original_price),
-          price: Number(item.discounted_price), // mapped for ProductCard/CartItemCard
+          price: Number(item.discounted_price), 
           hoursLeft: item.hours_left,
           stock: item.quantity,
           image: item.image_url || 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=600&auto=format&fit=crop',
@@ -59,7 +57,9 @@ export default function ConsumerDashboard({ session, onLogout }) {
     }
   };
 
-
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
   const handleCheckout = async () => {
     const cartItems = Object.values(cart);
@@ -79,7 +79,6 @@ export default function ConsumerDashboard({ session, onLogout }) {
 
         if (orderError) throw orderError;
         
-        // Decrement inventory
         const newQuantity = item.stock - item.quantity;
         await supabase
           .from('items')
@@ -89,8 +88,8 @@ export default function ConsumerDashboard({ session, onLogout }) {
 
       toast.success('Checkout successful! Check your orders.');
       clearCart();
-      setActiveTab('purchases');
       fetchItems();
+      navigate('/consumer/orders');
     } catch (error) {
       console.error('Error during checkout:', error.message);
       toast.error('Failed to complete checkout.');
@@ -98,6 +97,16 @@ export default function ConsumerDashboard({ session, onLogout }) {
       setReserving(false);
     }
   };
+
+  const getActiveTab = () => {
+    const path = location.pathname;
+    if (path.includes('/cart')) return 'cart';
+    if (path.includes('/orders')) return 'purchases';
+    if (path.includes('/menu')) return 'menu';
+    return 'shopping';
+  };
+
+  const activeTab = getActiveTab();
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f9f9f9]">
@@ -109,56 +118,49 @@ export default function ConsumerDashboard({ session, onLogout }) {
           {/* Desktop Tabs (Hidden on Mobile) */}
           <div className="hidden md:flex border-b border-gray-200 mb-6 gap-2">
             <button 
-              onClick={() => setActiveTab('shopping')}
+              onClick={() => navigate('/consumer/shop')}
               className={`pb-3 px-4 font-medium text-lg border-b-2 transition-colors ${activeTab === 'shopping' ? 'border-brand-blue text-brand-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
             >
               Shop
             </button>
             <button 
-              onClick={() => setActiveTab('cart')}
+              onClick={() => navigate('/consumer/cart')}
               className={`pb-3 px-4 font-medium text-lg border-b-2 transition-colors ${activeTab === 'cart' ? 'border-brand-blue text-brand-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
             >
               Cart
             </button>
             <button 
-              onClick={() => setActiveTab('purchases')}
+              onClick={() => navigate('/consumer/orders')}
               className={`pb-3 px-4 font-medium text-lg border-b-2 transition-colors ${activeTab === 'purchases' ? 'border-brand-blue text-brand-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
             >
               Orders
             </button>
             <button 
-              onClick={() => setActiveTab('menu')}
+              onClick={() => navigate('/consumer/menu')}
               className={`pb-3 px-4 font-medium text-lg border-b-2 transition-colors ${activeTab === 'menu' ? 'border-brand-blue text-brand-blue' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
             >
               Menu
             </button>
           </div>
 
-          {/* Render Active View */}
-          {activeTab === 'shopping' && (
-            loading ? (
-              <p className="text-gray-500 text-center py-12">Loading deals from local businesses...</p>
-            ) : (
-              <ShoppingPage items={items} />
-            )
-          )}
-
-          {activeTab === 'cart' && (
-            <CartPage onCheckout={handleCheckout} />
-          )}
-
-          {activeTab === 'purchases' && (
-            <PurchaseScreen session={session} />
-          )}
-
-          {activeTab === 'menu' && (
-            <MenuPage session={session} onLogout={onLogout} />
-          )}
+          <Routes>
+            <Route path="shop" element={
+              loading ? (
+                <p className="text-gray-500 text-center py-12">Loading deals from local businesses...</p>
+              ) : (
+                <ShoppingPage items={items} />
+              )
+            } />
+            <Route path="cart" element={<CartPage onCheckout={handleCheckout} />} />
+            <Route path="orders" element={<PurchaseScreen session={session} />} />
+            <Route path="menu" element={<MenuPage session={session} onLogout={onLogout} />} />
+            <Route path="*" element={<Navigate to="shop" replace />} />
+          </Routes>
 
         </div>
       </main>
 
-      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
+      <BottomNav />
     </div>
   );
 }

@@ -1,24 +1,26 @@
-import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, ShoppingCart, Menu, MapPin } from 'lucide-react';
 
 const TABS = [
-  { id: 'shopping', label: 'Explore', Icon: MapPin },
-  { id: 'cart', label: 'Cart', Icon: ShoppingCart },
-  { id: 'purchases', label: 'Purchase', Icon: ShoppingBag },
-  { id: 'menu', label: 'Menu', Icon: Menu },
+  { id: 'shopping', path: '/consumer/shop', label: 'Explore', Icon: MapPin },
+  { id: 'cart', path: '/consumer/cart', label: 'Cart', Icon: ShoppingCart },
+  { id: 'purchases', path: '/consumer/orders', label: 'Purchase', Icon: ShoppingBag },
+  { id: 'menu', path: '/consumer/menu', label: 'Menu', Icon: Menu },
 ];
 
-export default function BottomNav({ activeTab, setActiveTab }) {
+export default function BottomNav() {
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-[#f2f2f2] z-50 px-6 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))] md:hidden shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
       <div className="flex justify-between items-center max-w-md mx-auto">
         {TABS.map((tab) => {
-          const isActive = activeTab === tab.id;
+          const isActive = location.pathname.includes(tab.path);
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => navigate(tab.path)}
               className={`relative flex items-center justify-center h-11 rounded-full transition-colors duration-300 ${
                 isActive ? 'text-white px-4' : 'text-[#353535] px-3 hover:text-black'
               }`}

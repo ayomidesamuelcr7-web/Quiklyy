@@ -6,12 +6,6 @@ export default function RecentOrders({ session }) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (session?.user?.id) {
-      fetchOrders();
-    }
-  }, [session]);
-
   const fetchOrders = async () => {
     try {
       const { data, error } = await supabase
@@ -44,6 +38,14 @@ export default function RecentOrders({ session }) {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchOrders();
+    }
+  }, [session]);
+
+
 
   if (loading) {
     return <div className="py-10 text-center text-gray-500 text-sm">Loading recent purchases...</div>;

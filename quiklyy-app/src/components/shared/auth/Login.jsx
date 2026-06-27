@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import { EyeOff, Eye } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { supabase } from '../../../lib/supabaseClient';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-export default function Login({ onNavigate }) {
+export default function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''

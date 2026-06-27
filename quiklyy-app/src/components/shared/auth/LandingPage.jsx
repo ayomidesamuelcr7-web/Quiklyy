@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const LandingPage = ({ onNavigate }) => {
+const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-white flex flex-col items-center px-4 py-8 relative font-sans">
       
@@ -34,7 +36,7 @@ const LandingPage = ({ onNavigate }) => {
         
         {/* Sign up Button */}
         <button 
-          onClick={() => onNavigate('signup')}
+          onClick={() => navigate('/signup')}
           className="bg-[#004067] text-white flex items-center justify-center rounded-full hover:bg-[#002f4d] transition-colors"
           style={{ width: '370px', height: '56px', fontSize: '20px', fontWeight: 600 }}
         >
@@ -43,7 +45,7 @@ const LandingPage = ({ onNavigate }) => {
 
         {/* Log in Button */}
         <button 
-          onClick={() => onNavigate('login')}
+          onClick={() => navigate('/login')}
           className="bg-white flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors border border-[#004067]"
           style={{ width: '370px', height: '56px', fontSize: '20px', fontWeight: 600, color: '#1F1F1F' }}
         >

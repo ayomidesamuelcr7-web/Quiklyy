@@ -17,12 +17,6 @@ export default function BusinessDashboard({ session, onLogout }) {
   const [submitting, setSubmitting] = useState(false);
   const [stats, setStats] = useState({ revenueSaved: 0, itemsSoldToday: 0, activeListings: 0 });
 
-  useEffect(() => {
-    if (session?.user?.id) {
-      fetchData();
-    }
-  }, [session]);
-
   const fetchData = async () => {
     try {
       // 1. Fetch inventory items
@@ -103,6 +97,14 @@ export default function BusinessDashboard({ session, onLogout }) {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchData();
+    }
+  }, [session]);
+
+
 
   const handleCompleteOrder = async (orderId) => {
     try {

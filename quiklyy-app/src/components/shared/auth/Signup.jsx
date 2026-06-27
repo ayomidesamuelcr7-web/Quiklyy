@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import { Store, User, Eye, EyeOff } from 'lucide-react';
+import { Store, User, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { supabase } from '../../../lib/supabaseClient';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-export default function Signup({ onNavigate }) {
+export default function Signup() {
+  const navigate = useNavigate();
   const [accountType, setAccountType] = useState('personal'); 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
