@@ -1,26 +1,51 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: { type: "spring", stiffness: 300, damping: 24 }
+  }
+};
 
 const LandingPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center px-4 py-8 relative font-sans">
+    <motion.div 
+      className="min-h-screen bg-white flex flex-col items-center px-4 py-8 relative font-sans"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
       
       {/* Title */}
-      <div className="w-full flex justify-center mt-12 mb-6">
+      <motion.div variants={itemVariants} className="w-full flex justify-center mt-12 mb-6">
         <h1 
           className="text-[#353535] text-center" 
           style={{ fontSize: '28px', fontWeight: 600, lineHeight: '34px', width: '326px' }}
         >
           Smart eats, fast savings
         </h1>
-      </div>
+      </motion.div>
 
       {/* Illustration */}
-      <div className="flex-1 w-full flex items-center justify-center min-h-[287px] mb-8">
-        {/* Replace with the actual image when provided */}
+      <motion.div variants={itemVariants} className="flex-1 w-full flex items-center justify-center min-h-[287px] mb-8">
         <div className="w-full max-w-[391px] h-[287px] flex items-center justify-center">
-           <img src="/illustration.png" alt="Smart eats illustration" className="w-full h-full object-contain" onError={(e) => {
+           <img src="/illustration.png" alt="Smart eats illustration" className="w-full h-full object-contain drop-shadow-soft" onError={(e) => {
              e.target.style.display = 'none';
              e.target.nextSibling.style.display = 'flex';
            }} />
@@ -29,28 +54,32 @@ const LandingPage = () => {
              <span className="text-xs mt-1">Add illustration.png to public/</span>
            </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Buttons & Footer */}
-      <div className="w-full flex flex-col items-center gap-4 mb-4">
+      <motion.div variants={itemVariants} className="w-full flex flex-col items-center gap-4 mb-4">
         
         {/* Sign up Button */}
-        <button 
+        <motion.button 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => navigate('/signup')}
-          className="bg-[#004067] text-white flex items-center justify-center rounded-full hover:bg-[#002f4d] transition-colors"
+          className="bg-[#004067] text-white flex items-center justify-center rounded-full hover:bg-[#002f4d] transition-colors shadow-soft"
           style={{ width: '370px', height: '56px', fontSize: '20px', fontWeight: 600 }}
         >
           Sign up
-        </button>
+        </motion.button>
 
         {/* Log in Button */}
-        <button 
+        <motion.button 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => navigate('/login')}
-          className="bg-white flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors border border-[#004067]"
+          className="bg-white flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors border border-[#004067] shadow-soft"
           style={{ width: '370px', height: '56px', fontSize: '20px', fontWeight: 600, color: '#1F1F1F' }}
         >
           Log in
-        </button>
+        </motion.button>
 
         {/* Or Divider */}
         <div className="flex items-center justify-center my-1 w-[370px]">
@@ -60,8 +89,10 @@ const LandingPage = () => {
         </div>
 
         {/* Continue with Google Button */}
-        <button 
-          className="bg-white flex items-center justify-center gap-3 rounded-full hover:bg-gray-50 transition-colors border border-[#004067]"
+        <motion.button 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="bg-white flex items-center justify-center gap-3 rounded-full hover:bg-gray-50 transition-colors border border-[#004067] shadow-soft"
           style={{ width: '370px', height: '56px', fontSize: '20px', fontWeight: 600, color: '#000000' }}
         >
           {/* Google G Icon */}
@@ -72,19 +103,20 @@ const LandingPage = () => {
             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
           </svg>
           Continue with google
-        </button>
+        </motion.button>
 
-      </div>
+      </motion.div>
 
       {/* Footer Text */}
-      <div 
+      <motion.div 
+        variants={itemVariants}
         className="text-center mt-2"
         style={{ width: '345px', fontSize: '11px', fontWeight: 300, color: '#000000' }}
       >
         By continuing, you agree to our <span style={{ fontWeight: 600 }}>Term of services</span> and acknowledge you’ve read our <span style={{ fontWeight: 600 }}>Privacy policy</span>
-      </div>
+      </motion.div>
 
-    </div>
+    </motion.div>
   );
 };
 

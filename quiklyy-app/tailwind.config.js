@@ -18,6 +18,11 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
+      boxShadow: {
+        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+        'float': '0 10px 30px rgba(0, 0, 0, 0.08)',
+        'glass': '0 4px 30px rgba(0, 0, 0, 0.1)',
+      },
       keyframes: {
         'slide-up': {
           '0%': { transform: 'translateY(100%)' },
