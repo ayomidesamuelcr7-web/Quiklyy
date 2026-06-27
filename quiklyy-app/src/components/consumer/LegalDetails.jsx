@@ -39,6 +39,8 @@ export default function LegalDetails() {
                     navigate('/consumer/privacy');
                   } else if (doc.id === 'terms') {
                     navigate('/consumer/terms');
+                  } else if (doc.id === 'cookie') {
+                    navigate('/consumer/cookie');
                   }
                 }}
                 className={`flex items-center justify-between w-full px-5 py-4 text-left hover:bg-gray-50 transition-colors ${
