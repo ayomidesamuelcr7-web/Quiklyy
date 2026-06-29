@@ -76,7 +76,7 @@ export default function Login() {
           Welcome back to Quiklyy
         </h2>
 
-        <div className="px-0.5 sm:px-10">
+        <div className="px-5 sm:px-10">
           {errorMsg && (
             <div className="mb-4 bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-lg">
               {errorMsg}

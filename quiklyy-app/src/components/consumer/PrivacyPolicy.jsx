@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
     <div className="bg-white min-h-screen text-gray-900 font-sans animate-slide-up relative flex flex-col">
       
       {/* Header Navigation */}
-      <div className="sticky top-0 bg-white/80 backdrop-blur-md z-10 flex items-center px-0.5 py-6 border-b border-gray-100 shrink-0">
+      <div className="sticky top-0 bg-white/80 backdrop-blur-md z-10 flex items-center px-5 py-6 border-b border-gray-100 shrink-0">
         <button 
           onClick={() => navigate(-1)} 
           className="mr-4 p-2 hover:bg-gray-100 rounded-full transition-colors -ml-2"
@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
         <h1 className="text-xl font-bold tracking-tight">Privacy Policy</h1>
       </div>
 
-      <div className="px-0.5 py-8 max-w-2xl mx-auto w-full flex-1">
+      <div className="px-5 py-8 max-w-2xl mx-auto w-full flex-1">
         <div className="prose prose-sm prose-gray max-w-none">
           <p className="font-medium text-gray-500 mb-2">Effective Date: June 27, 2026</p>
           <p className="font-medium text-gray-500 mb-8">Last Updated: June 27, 2026</p>
