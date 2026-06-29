@@ -9,7 +9,7 @@ export default function CookiePolicy() {
     <div className="bg-white min-h-screen text-gray-900 font-sans animate-slide-up relative flex flex-col">
       
       {/* Header Navigation */}
-      <div className="sticky top-0 bg-white/80 backdrop-blur-md z-10 flex items-center px-5 py-6 border-b border-gray-100 shrink-0">
+      <div className="sticky top-0 bg-white/80 backdrop-blur-md z-10 flex items-center px-0.5 py-6 border-b border-gray-100 shrink-0">
         <button 
           onClick={() => navigate(-1)} 
           className="mr-4 p-2 hover:bg-gray-100 rounded-full transition-colors -ml-2"

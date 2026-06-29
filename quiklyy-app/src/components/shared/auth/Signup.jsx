@@ -115,7 +115,7 @@ export default function Signup() {
           Create your account
         </h2>
 
-        <div className="px-5 sm:px-10">
+        <div className="px-0.5 sm:px-10">
           
           <div className="flex bg-[#f2f2f2] p-1 rounded-[12px] mb-6">
             <button

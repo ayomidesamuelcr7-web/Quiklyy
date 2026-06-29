@@ -25,7 +25,7 @@ export default function SearchBar() {
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`whitespace-nowrap px-5 py-1.5 rounded-full text-[13px] font-medium transition-colors ${
+            className={`whitespace-nowrap px-0.5 py-1.5 rounded-full text-[13px] font-medium transition-colors ${
               activeCategory === category 
                 ? 'bg-[#004466] text-white shadow-md' 
                 : 'bg-[#f2f2f2] text-gray-800 hover:bg-[#e6e6e6]'

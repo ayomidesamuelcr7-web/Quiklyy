@@ -15,7 +15,7 @@ export default function ContactDetails() {
     <div className="bg-white min-h-[calc(100vh-80px)] text-gray-900 font-sans pb-32 animate-slide-up relative">
       
       {/* Header Navigation */}
-      <div className="flex items-center px-5 py-6 border-b border-gray-100">
+      <div className="flex items-center px-0.5 py-6 border-b border-gray-100">
         <button 
           onClick={() => navigate(-1)} 
           className="mr-4 p-2 hover:bg-gray-100 rounded-full transition-colors -ml-2"
@@ -25,7 +25,7 @@ export default function ContactDetails() {
         <h1 className="text-xl font-bold tracking-tight">Contact Support</h1>
       </div>
 
-      <div className="px-5 py-6 space-y-8 max-w-lg mx-auto">
+      <div className="px-0.5 py-6 space-y-8 max-w-lg mx-auto">
         
         {/* Contact Options */}
         <div className="space-y-3">

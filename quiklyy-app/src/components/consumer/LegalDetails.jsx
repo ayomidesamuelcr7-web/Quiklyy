@@ -15,7 +15,7 @@ export default function LegalDetails() {
     <div className="bg-white min-h-[calc(100vh-80px)] text-gray-900 font-sans pb-12 animate-slide-up relative flex flex-col">
       
       {/* Header Navigation */}
-      <div className="flex items-center px-5 py-6 border-b border-gray-100 shrink-0">
+      <div className="flex items-center px-0.5 py-6 border-b border-gray-100 shrink-0">
         <button 
           onClick={() => navigate(-1)} 
           className="mr-4 p-2 hover:bg-gray-100 rounded-full transition-colors -ml-2"
@@ -25,7 +25,7 @@ export default function LegalDetails() {
         <h1 className="text-xl font-bold tracking-tight">Legal & About</h1>
       </div>
 
-      <div className="px-5 py-8 space-y-8 max-w-lg mx-auto w-full flex-1 flex flex-col">
+      <div className="px-0.5 py-8 space-y-8 max-w-lg mx-auto w-full flex-1 flex flex-col">
         
         {/* Document Links */}
         <div className="flex flex-col border border-gray-100 rounded-2xl overflow-hidden shrink-0">
@@ -43,7 +43,7 @@ export default function LegalDetails() {
                     navigate('/consumer/cookie');
                   }
                 }}
-                className={`flex items-center justify-between w-full px-5 py-4 text-left hover:bg-gray-50 transition-colors ${
+                className={`flex items-center justify-between w-full px-0.5 py-4 text-left hover:bg-gray-50 transition-colors ${
                   index !== DOCUMENTS.length - 1 ? 'border-b border-gray-100' : ''
                 }`}
               >

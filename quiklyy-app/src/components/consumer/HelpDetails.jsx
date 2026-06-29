@@ -42,7 +42,7 @@ export default function HelpDetails() {
     <div className="bg-white min-h-[calc(100vh-80px)] text-gray-900 font-sans pb-12 animate-slide-up relative">
       
       {/* Header Navigation */}
-      <div className="flex items-center px-5 py-6 border-b border-gray-100">
+      <div className="flex items-center px-0.5 py-6 border-b border-gray-100">
         <button 
           onClick={() => navigate(-1)} 
           className="mr-4 p-2 hover:bg-gray-100 rounded-full transition-colors -ml-2"
@@ -52,7 +52,7 @@ export default function HelpDetails() {
         <h1 className="text-xl font-bold tracking-tight">Help & Support</h1>
       </div>
 
-      <div className="px-5 py-6 space-y-6 max-w-lg mx-auto">
+      <div className="px-0.5 py-6 space-y-6 max-w-lg mx-auto">
         
         {/* Search Bar */}
         <div className="relative">
@@ -83,7 +83,7 @@ export default function HelpDetails() {
                 >
                   <button
                     onClick={() => toggleAccordion(faq.id)}
-                    className="flex items-center justify-between w-full px-5 py-4 text-left hover:bg-gray-50 transition-colors"
+                    className="flex items-center justify-between w-full px-0.5 py-4 text-left hover:bg-gray-50 transition-colors"
                   >
                     <span className="text-[15px] font-medium text-gray-800 pr-4">{faq.question}</span>
                     <div className="flex-shrink-0 text-gray-400">
@@ -92,7 +92,7 @@ export default function HelpDetails() {
                   </button>
                   
                   {isExpanded && (
-                    <div className="px-5 pb-4 pt-1 text-[14px] text-gray-600 leading-relaxed bg-gray-50/50 transition-all">
+                    <div className="px-0.5 pb-4 pt-1 text-[14px] text-gray-600 leading-relaxed bg-gray-50/50 transition-all">
                       {faq.answer}
                     </div>
                   )}
@@ -101,7 +101,7 @@ export default function HelpDetails() {
             })}
             
             {filteredFaqs.length === 0 && (
-              <div className="px-5 py-8 text-center text-gray-500 text-[15px]">
+              <div className="px-0.5 py-8 text-center text-gray-500 text-[15px]">
                 We couldn't find any articles matching your search.
               </div>
             )}

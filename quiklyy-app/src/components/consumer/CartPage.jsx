@@ -17,7 +17,7 @@ export default function CartPage({ onCheckout }) {
   const total = subtotal; 
 
   return (
-    <div className="animate-slide-up flex flex-col min-h-[calc(100vh-160px)] pt-6 px-5 pb-6">
+    <div className="animate-slide-up flex flex-col min-h-[calc(100vh-160px)] pt-6 px-0.5 pb-6">
       <div className="mb-4">
         <h2 className="text-[22px] font-bold text-[#353535] flex items-center gap-2">
           <ShoppingCart size={24} strokeWidth={1.5} className="text-[#353535]" />
