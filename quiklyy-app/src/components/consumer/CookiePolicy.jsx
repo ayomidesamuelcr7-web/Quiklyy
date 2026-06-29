@@ -19,7 +19,7 @@ export default function CookiePolicy() {
         <h1 className="text-xl font-bold tracking-tight">Cookie Policy</h1>
       </div>
 
-      <div className="px-6 py-8 max-w-2xl mx-auto w-full flex-1">
+      <div className="px-0.5 py-8 max-w-2xl mx-auto w-full flex-1">
         <div className="prose prose-sm prose-gray max-w-none">
           <p className="font-medium text-gray-500 mb-8">Effective Date: June 27, 2026</p>
           
