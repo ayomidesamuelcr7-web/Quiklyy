@@ -56,7 +56,7 @@ export default function NotificationsFeed() {
     <div className="bg-white min-h-[calc(100vh-80px)] text-gray-900 font-sans pb-12 animate-slide-up relative">
       
       {/* Header Navigation */}
-      <div className="flex items-center justify-between px-5 py-6 border-b border-gray-100">
+      <div className="flex items-center justify-between px-2 py-6 border-b border-gray-100">
         <div className="flex items-center">
           <button 
             onClick={() => navigate(-1)} 
@@ -108,7 +108,7 @@ export default function NotificationsFeed() {
             })}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 px-5 text-center">
+          <div className="flex flex-col items-center justify-center py-20 px-2 text-center">
             <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4 text-gray-400">
               <Bell size={28} />
             </div>

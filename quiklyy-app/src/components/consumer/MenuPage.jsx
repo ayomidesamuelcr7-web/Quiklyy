@@ -53,7 +53,7 @@ export default function MenuPage({ session, onLogout }) {
         <h1 className="text-[28px] font-bold text-center tracking-tight">My account</h1>
       </div>
 
-      <div className="px-5 space-y-6">
+      <div className="px-2 space-y-6">
         {sections.map((section, idx) => (
           <div key={idx} className="space-y-1">
             <h2 className="text-[17px] font-bold pb-2">{section.title}</h2>

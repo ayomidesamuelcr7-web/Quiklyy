@@ -31,7 +31,7 @@ export default function ShoppingPage({ items }) {
   });
 
   return (
-    <div className="animate-slide-up bg-[#f9f9f9] min-h-screen px-5 py-4">
+    <div className="animate-slide-up bg-[#f9f9f9] min-h-screen px-2 py-4">
       {!selectedItem && (
         <>
           <SearchBar />
