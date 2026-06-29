@@ -72,7 +72,9 @@ export default function CartItemCard({ item, quantity = 0, onQuantityChange, onC
             </div>
             <div className="flex items-center gap-1.5 text-gray-500">
               <MapPin size={14} className="flex-shrink-0" />
-              <span className="text-[12px] truncate">{item.location || item.distance || "Location"}</span>
+              <span className="text-[12px] truncate">
+                {item.calculatedDistance ? `${item.calculatedDistance} mi away` : (item.location || item.distance || "Location")}
+              </span>
             </div>
           </div>
           

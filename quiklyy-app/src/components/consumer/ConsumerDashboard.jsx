@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import useCartStore from '../../store/useCartStore';
+import useLocationStore from '../../store/useLocationStore';
+import { geocodeAddress } from '../../lib/geocode';
+import { calculateDistance } from '../../lib/distance';
 import toast from 'react-hot-toast';
 import ConsumerHeader from './ConsumerHeader';
 import BottomNav from '../shared/ui/BottomNav';
@@ -34,6 +37,44 @@ export default function ConsumerDashboard({ session, onLogout }) {
 
   const cart = useCartStore((state) => state.cart);
   const clearCart = useCartStore((state) => state.clearCart);
+  
+  const userLocation = useLocationStore((state) => state.userLocation);
+
+  const enrichItemsWithLocation = async (initialItems) => {
+    let updatedItems = [...initialItems];
+    for (let i = 0; i < updatedItems.length; i++) {
+      const item = updatedItems[i];
+      if (!item.distance || item.distance === 'Unknown Location' || item.lat) continue;
+      
+      const coords = await geocodeAddress(item.distance);
+      if (coords) {
+        const latOffset = (Math.random() - 0.5) * 0.0005;
+        const lngOffset = (Math.random() - 0.5) * 0.0005;
+        updatedItems[i].lat = coords.lat + latOffset;
+        updatedItems[i].lng = coords.lng + lngOffset;
+        
+        setItems([...updatedItems]);
+      }
+    }
+  };
+
+  // Recalculate distances when user location changes or items finish geocoding
+  useEffect(() => {
+    if (userLocation && items.length > 0) {
+      let changed = false;
+      const newItems = items.map(item => {
+        if (item.lat && item.lng) {
+          const dist = calculateDistance(userLocation.lat, userLocation.lng, item.lat, item.lng);
+          if (dist !== item.calculatedDistance) {
+            changed = true;
+            return { ...item, calculatedDistance: dist };
+          }
+        }
+        return item;
+      });
+      if (changed) setItems(newItems);
+    }
+  }, [userLocation, items]);
 
   const fetchItems = async () => {
     try {
@@ -63,7 +104,9 @@ export default function ConsumerDashboard({ session, onLogout }) {
           stock: item.quantity,
           image: item.image_url || 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=600&auto=format&fit=crop',
         })).filter(item => item.stock > 0);
+        
         setItems(mappedItems);
+        enrichItemsWithLocation(mappedItems);
       }
     } catch (error) {
       console.error('Error fetching consumer items:', error.message);

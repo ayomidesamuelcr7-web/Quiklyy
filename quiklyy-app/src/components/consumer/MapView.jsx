@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { geocodeAddress } from '../../lib/geocode';
+import MarkerClusterGroup from 'react-leaflet-cluster';
+import { LocateFixed } from 'lucide-react';
+import useLocationStore from '../../store/useLocationStore';
 
 // A custom div icon that looks like a Quiklyy pin
 const customIcon = new L.DivIcon({
@@ -19,71 +21,72 @@ const customIcon = new L.DivIcon({
   popupAnchor: [0, -32]
 });
 
+// Icon for the user's current location
+const userIcon = new L.DivIcon({
+  className: 'user-pin',
+  html: `<div class="w-5 h-5 bg-blue-500 rounded-full border-[3px] border-white shadow-lg shadow-blue-500/50"></div>`,
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
+
+// Component to handle user location
+function LocationButton() {
+  const map = useMap();
+  const setLocation = useLocationStore((state) => state.setLocation);
+  const [locating, setLocating] = React.useState(false);
+
+  const handleLocate = () => {
+    setLocating(true);
+    map.locate({ setView: true, maxZoom: 14 });
+    
+    map.once('locationfound', (e) => {
+      setLocation(e.latlng.lat, e.latlng.lng);
+      setLocating(false);
+    });
+    
+    map.once('locationerror', (e) => {
+      console.error(e);
+      setLocating(false);
+      alert('Could not find your location. Please check browser permissions.');
+    });
+  };
+
+  return (
+    <button 
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleLocate();
+      }}
+      className={`absolute bottom-6 right-6 z-[400] bg-white p-3 rounded-full shadow-lg border border-gray-200 transition-transform active:scale-95 flex items-center justify-center ${locating ? 'animate-pulse text-blue-500' : 'text-gray-700 hover:text-brand-blue'}`}
+      title="Find My Location"
+    >
+      <LocateFixed size={24} />
+    </button>
+  );
+}
+
 // Component to adjust map bounds to fit all markers
-function MapBounds({ markers }) {
+function MapBounds({ markers, userLocation }) {
   const map = useMap();
   useEffect(() => {
-    if (markers.length > 0) {
+    // Only auto-fit bounds if we haven't locked onto the user's location
+    if (markers.length > 0 && !userLocation) {
       const group = new L.featureGroup(markers.map(m => L.marker([m.lat, m.lng])));
       map.fitBounds(group.getBounds(), { padding: [50, 50] });
     }
-  }, [markers, map]);
+  }, [markers, map, userLocation]);
   return null;
 }
 
 export default function MapView({ items, onSelect }) {
-  const [markers, setMarkers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  // Default to somewhere central if no items. We'll use Lagos, Nigeria as an example.
+  const userLocation = useLocationStore((state) => state.userLocation);
+  
+  // Filter items that have successfully been geocoded
+  const markers = items.filter(item => item.lat && item.lng);
+  
+  // Default to somewhere central if no items.
   const defaultCenter = [6.5244, 3.3792];
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadCoordinates() {
-      setLoading(true);
-      const newMarkers = [];
-      
-      for (const item of items) {
-        if (!item.distance || item.distance === 'Unknown Location') continue;
-        
-        const coords = await geocodeAddress(item.distance);
-        if (coords && isMounted) {
-          // Add a tiny random offset so markers at the exact same address don't perfectly overlap
-          const latOffset = (Math.random() - 0.5) * 0.0005;
-          const lngOffset = (Math.random() - 0.5) * 0.0005;
-          
-          newMarkers.push({
-            ...item,
-            lat: coords.lat + latOffset,
-            lng: coords.lng + lngOffset
-          });
-        }
-      }
-      
-      if (isMounted) {
-        setMarkers(newMarkers);
-        setLoading(false);
-      }
-    }
-
-    if (items.length > 0) {
-      loadCoordinates();
-    } else {
-      setLoading(false);
-    }
-
-    return () => { isMounted = false; };
-  }, [items]);
-
-  if (loading) {
-    return (
-      <div className="w-full h-[400px] bg-gray-100 rounded-2xl flex items-center justify-center border border-gray-200">
-        <p className="text-gray-500 font-medium">Finding deals near you...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full h-[60vh] min-h-[400px] rounded-2xl overflow-hidden border border-gray-200 shadow-sm relative z-0">
@@ -98,41 +101,54 @@ export default function MapView({ items, onSelect }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
-        {markers.map((marker) => (
-          <Marker 
-            key={marker.id} 
-            position={[marker.lat, marker.lng]}
-            icon={customIcon}
-          >
-            <Popup className="custom-popup">
-              <div className="flex flex-col gap-2 p-1 min-w-[150px]">
-                <img 
-                  src={marker.image} 
-                  alt={marker.name} 
-                  className="w-full h-24 object-cover rounded-lg mb-1" 
-                />
-                <div>
-                  <h3 className="font-bold text-gray-900 leading-tight m-0">{marker.name}</h3>
-                  <p className="text-xs text-gray-500 m-0 mt-0.5">{marker.storeName}</p>
-                </div>
-                <div className="flex items-center justify-between mt-1">
-                  <span className="font-bold text-brand-blue">₦{marker.price}</span>
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelect(marker);
-                    }}
-                    className="bg-brand-blue text-white text-xs px-3 py-1.5 rounded-full hover:bg-blue-900 transition-colors"
-                  >
-                    View
-                  </button>
-                </div>
-              </div>
-            </Popup>
+        <LocationButton />
+
+        {userLocation && (
+          <Marker position={[userLocation.lat, userLocation.lng]} icon={userIcon}>
+            <Popup>You are here</Popup>
           </Marker>
-        ))}
+        )}
         
-        <MapBounds markers={markers} />
+        <MarkerClusterGroup chunkedLoading maxClusterRadius={50}>
+          {markers.map((marker) => (
+            <Marker 
+              key={marker.id} 
+              position={[marker.lat, marker.lng]}
+              icon={customIcon}
+            >
+              <Popup className="custom-popup">
+                <div className="flex flex-col gap-2 p-1 min-w-[150px]">
+                  <img 
+                    src={marker.image} 
+                    alt={marker.name} 
+                    className="w-full h-24 object-cover rounded-lg mb-1" 
+                  />
+                  <div>
+                    <h3 className="font-bold text-gray-900 leading-tight m-0">{marker.name}</h3>
+                    <p className="text-xs text-gray-500 m-0 mt-0.5">{marker.storeName}</p>
+                    {marker.calculatedDistance && (
+                      <p className="text-xs text-brand-blue font-medium mt-1">{marker.calculatedDistance} miles away</p>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between mt-1">
+                    <span className="font-bold text-brand-blue">₦{marker.price}</span>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onSelect(marker);
+                      }}
+                      className="bg-brand-blue text-white text-xs px-3 py-1.5 rounded-full hover:bg-blue-900 transition-colors"
+                    >
+                      View
+                    </button>
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+        
+        <MapBounds markers={markers} userLocation={userLocation} />
       </MapContainer>
     </div>
   );

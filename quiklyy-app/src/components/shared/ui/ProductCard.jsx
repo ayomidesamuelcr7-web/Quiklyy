@@ -40,7 +40,9 @@ export default function ProductCard({ item, onSelect }) {
             </div>
             <div className="flex items-center text-gray-500 text-[13px]">
               <MapPin size={14} className="mr-1.5 text-gray-400 flex-shrink-0" />
-              <span className="truncate">{item.distance}</span>
+              <span className="truncate">
+                {item.calculatedDistance ? `${item.calculatedDistance} mi away` : item.distance}
+              </span>
             </div>
           </div>
 
