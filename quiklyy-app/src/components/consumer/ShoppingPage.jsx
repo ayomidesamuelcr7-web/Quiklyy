@@ -61,7 +61,7 @@ export default function ShoppingPage({ items }) {
 
           <div className="pb-24">
             {viewMode === 'list' ? (
-              <div className="flex flex-col gap-[0.7rem]">
+              <div className="grid grid-cols-2 gap-3">
                 {feedItems.map(item => (
                   <CartItemCard
                     key={item.id}
